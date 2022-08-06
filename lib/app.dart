@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:where_is_efi/constants.dart';
+import 'package:where_is_efi/questions_page.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -11,35 +12,11 @@ class App extends StatelessWidget {
     return response.body;
   }
 
-  void saveJSON(String data) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.getString('data') == null ? null : await prefs.remove('data');
-    await prefs.setString('data', data);
-    print('new data: ' + prefs.getString('data').toString());
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: Scaffold(
-            appBar: AppBar(
-              title: const Text('test'),
-            ),
-            body: Center(
-                child: FutureBuilder<String>(
-              future: getJSON(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  saveJSON(snapshot.data.toString());
-                  return Text(snapshot.data!);
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              },
-            ))));
+        theme: elsewhereTheme,
+        home: Scaffold(body: QuestionPage()));
   }
 }
