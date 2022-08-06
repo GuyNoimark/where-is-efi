@@ -11,13 +11,26 @@ class _NameScreenState extends State<NameScreen> {
   @override
   Widget build(final BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("hello!")),
+      appBar: AppBar(title: Text("Sign up")),
       body: Container(
           child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("name"),
+            const Text(
+              "What's your name?",
+              textScaleFactor: 3,
+            ),
+            const Padding(padding: EdgeInsets.all(8)),
+            const TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  gapPadding: 8,
+                ), //TODO need to see how to work with it
+                labelText: 'name',
+              ),
+            ),
+            const Padding(padding: EdgeInsets.all(8)),
             ElevatedButton(onPressed: () {}, child: Text("button"))
           ],
         ),

@@ -12,13 +12,17 @@ class _EnterScreenState extends State<EnterScreen> {
   @override
   Widget build(final BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("hello!")),
+      appBar: AppBar(title: const Text("Welcome to ElseWhere!")),
       body: Container(
           child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("ElseWhere"),
+            const Text(
+              "ElseWhere",
+              textScaleFactor: 3,
+            ),
+            const Padding(padding: EdgeInsets.all(8)),
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -27,7 +31,7 @@ class _EnterScreenState extends State<EnterScreen> {
                           builder: (final BuildContext context) =>
                               NameScreen()));
                 },
-                child: Text("button"))
+                child: const Text("Let's begin!"))
           ],
         ),
       )),
