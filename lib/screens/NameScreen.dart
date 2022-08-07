@@ -1,7 +1,7 @@
 import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:where_is_efi/screens/EnterScreen.dart';
-import 'package:where_is_efi/widgets/button.dart';
+import 'package:where_is_efi/widgets/Button.dart';
 
 import '../constants.dart';
 
@@ -11,6 +11,7 @@ class NameScreen extends StatefulWidget {
 }
 
 class _NameScreenState extends State<NameScreen> {
+  final myController = TextEditingController();
   @override
   Widget build(final BuildContext context) {
     return Container(
@@ -22,16 +23,19 @@ class _NameScreenState extends State<NameScreen> {
               "What's your name?",
               textScaleFactor: 5,
             ),
-            const SizedBox(
+            SizedBox(
               width: 500,
               height: 60,
               child: TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'name',
                 ),
+                controller: myController,
+                cursorColor: Colors.white,
               ),
             ),
-            Button(text: "Submit", nextScreen: EnterScreen())
+            Button(
+                text: "Submit", nextScreen: Container()) //TODO: question screen
           ],
         ),
       ),

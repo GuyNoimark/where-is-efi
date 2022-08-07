@@ -1,7 +1,7 @@
 import 'dart:html';
 import 'package:where_is_efi/constants.dart';
-import 'package:where_is_efi/widgets/button.dart';
 
+import '../widgets/Button.dart';
 import 'NameScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:where_is_efi/screens/NameScreen.dart';
