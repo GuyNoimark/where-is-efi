@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:where_is_efi/constants.dart';
 
@@ -20,9 +22,11 @@ class QuestionPage extends StatefulWidget {
 }
 
 class _QuestionPageState extends State<QuestionPage> {
-  // void showKeyboard(Keyboard keyboard) {}
-  bool showKeyboard = false;
-  TextEditingController _controller = TextEditingController();
+  // void showNumKeyboard(Keyboard keyboard) {}
+  bool showNumKeyboard = false;
+  bool showCharKeyboard = false;
+  TextEditingController _numController = TextEditingController();
+  TextEditingController _charController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +69,12 @@ class _QuestionPageState extends State<QuestionPage> {
                           width: 100,
                           child: TextField(
                             readOnly: true,
+                            controller: _charController,
+                            onTap: () => setState(() {
+                              print('Char');
+                              showCharKeyboard = true;
+                              showNumKeyboard = false;
+                            }),
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 60),
                             decoration: InputDecoration(hintText: 'A'),
@@ -75,10 +85,11 @@ class _QuestionPageState extends State<QuestionPage> {
                           width: 100,
                           child: TextField(
                             readOnly: true,
-                            controller: _controller,
+                            controller: _numController,
                             onTap: () => setState(() {
-                              print('tap');
-                              showKeyboard = true;
+                              print('Num');
+                              showNumKeyboard = true;
+                              showCharKeyboard = false;
                             }),
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 60),
@@ -103,7 +114,7 @@ class _QuestionPageState extends State<QuestionPage> {
           )),
           AnimatedPositioned(
             duration: Duration(milliseconds: 600),
-            bottom: showKeyboard ? 150 : 120,
+            bottom: showNumKeyboard || showCharKeyboard ? 150 : 120,
             curve: Curves.easeInOutQuad,
             child: Center(
               child: SizedBox(
@@ -124,15 +135,19 @@ class _QuestionPageState extends State<QuestionPage> {
           ),
           AnimatedPositioned(
             duration: Duration(milliseconds: 600),
-            bottom: showKeyboard ? 0 : -100,
+            bottom: showNumKeyboard || showCharKeyboard ? 0 : -100,
             curve: Curves.easeInOutQuad,
             child: Keyboard(
                 keys: List.generate(
                     10,
                     (index) => TextKey(
-                          text: index.toString(),
+                          text: showNumKeyboard
+                              ? index.toString()
+                              : String.fromCharCode(index + 65),
                           onClick: (text) {
-                            _controller.text = text;
+                            showNumKeyboard
+                                ? _numController.text = text
+                                : _charController.text = text;
                           },
                         ))),
           ),
