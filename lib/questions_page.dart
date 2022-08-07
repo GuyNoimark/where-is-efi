@@ -28,6 +28,9 @@ class _QuestionPageState extends State<QuestionPage> {
   TextEditingController _numController = TextEditingController();
   TextEditingController _charController = TextEditingController();
 
+  bool checkAnswer() =>
+      _charController.text + _numController.text == widget.answer;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -71,7 +74,6 @@ class _QuestionPageState extends State<QuestionPage> {
                             readOnly: true,
                             controller: _charController,
                             onTap: () => setState(() {
-                              print('Char');
                               showCharKeyboard = true;
                               showNumKeyboard = false;
                             }),
@@ -87,7 +89,6 @@ class _QuestionPageState extends State<QuestionPage> {
                             readOnly: true,
                             controller: _numController,
                             onTap: () => setState(() {
-                              print('Num');
                               showNumKeyboard = true;
                               showCharKeyboard = false;
                             }),
@@ -121,12 +122,24 @@ class _QuestionPageState extends State<QuestionPage> {
                 width: 500,
                 height: 60, // specific value
                 child: ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          checkAnswer() ? Colors.lightGreen : secondary)),
                   onPressed: () {
-                    print(widget.answer);
+                    setState(() {
+                      showNumKeyboard = false;
+                      showCharKeyboard = false;
+                      checkAnswer;
+                    });
+
+                    print(widget.answer +
+                        ' | ' +
+                        _charController.text +
+                        _numController.text);
                   },
                   child: Text('בדיקה',
                       style: TextStyle(
-                          color: bgColor1,
+                          color: checkAnswer() ? secondary : bgColor1,
                           fontSize: 20,
                           fontWeight: FontWeight.bold)),
                 ),
@@ -142,7 +155,7 @@ class _QuestionPageState extends State<QuestionPage> {
                     10,
                     (index) => TextKey(
                           text: showNumKeyboard
-                              ? index.toString()
+                              ? (index + 1).toString()
                               : String.fromCharCode(index + 65),
                           onClick: (text) {
                             showNumKeyboard
@@ -155,6 +168,12 @@ class _QuestionPageState extends State<QuestionPage> {
       ),
     );
   }
+}
+
+enum ButtonState {
+  idle,
+  correct,
+  wrong,
 }
 
 class TextKey extends StatelessWidget {
