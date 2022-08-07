@@ -18,6 +18,12 @@ class App extends StatelessWidget {
         title: 'Flutter Demo',
         theme: elsewhereTheme,
         debugShowCheckedModeBanner: false,
-        home: Scaffold(body: QuestionPage()));
+        home: const Scaffold(
+            body: QuestionPage(
+          numberOfQuestions: 11,
+          questionNumber: 3,
+          question: 'מה המיקום של הקרקס?',
+          answer: 'D7',
+        )));
   }
 }
