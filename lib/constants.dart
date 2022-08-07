@@ -26,7 +26,7 @@ final ThemeData elsewhereTheme = ThemeData.dark().copyWith(
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: defaultBorderRadius,
-      borderSide: BorderSide(width: 3, color: Colors.deepPurple),
+      borderSide: BorderSide(width: 3, color: Colors.yellow),
     ),
   ),
   toggleButtonsTheme: ToggleButtonsThemeData(
