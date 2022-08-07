@@ -1,6 +1,9 @@
 import 'dart:html';
-
 import 'package:flutter/material.dart';
+import 'package:where_is_efi/screens/EnterScreen.dart';
+import 'package:where_is_efi/widgets/button.dart';
+
+import '../constants.dart';
 
 class NameScreen extends StatefulWidget {
   @override
@@ -10,31 +13,29 @@ class NameScreen extends StatefulWidget {
 class _NameScreenState extends State<NameScreen> {
   @override
   Widget build(final BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Sign up")),
-      body: Container(
-          child: Center(
+    return Container(
+      child: Center(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Text(
+            Text(
               "What's your name?",
-              textScaleFactor: 3,
+              textScaleFactor: 8,
             ),
-            const Padding(padding: EdgeInsets.all(8)),
-            const TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  gapPadding: 8,
-                ), //TODO need to see how to work with it
-                labelText: 'name',
+            const SizedBox(
+              width: 500,
+              height: 60,
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: 'name',
+                ),
               ),
             ),
-            const Padding(padding: EdgeInsets.all(8)),
-            ElevatedButton(onPressed: () {}, child: Text("button"))
+            Button(text: "Submit", nextScreen: EnterScreen())
           ],
         ),
-      )),
+      ),
+      decoration: BoxDecoration(gradient: bgGradient),
     );
   }
 }

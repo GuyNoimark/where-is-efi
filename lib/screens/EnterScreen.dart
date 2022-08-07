@@ -1,4 +1,7 @@
 import 'dart:html';
+import 'package:where_is_efi/constants.dart';
+import 'package:where_is_efi/widgets/button.dart';
+
 import 'NameScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:where_is_efi/screens/NameScreen.dart';
@@ -11,30 +14,18 @@ class EnterScreen extends StatefulWidget {
 class _EnterScreenState extends State<EnterScreen> {
   @override
   Widget build(final BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Welcome to ElseWhere!")),
-      body: Container(
-          child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+    return Container(
+        child: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const Text(
-              "ElseWhere",
-              textScaleFactor: 3,
+              'Elsewhere',
+              textScaleFactor: 10,
             ),
-            const Padding(padding: EdgeInsets.all(8)),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (final BuildContext context) =>
-                              NameScreen()));
-                },
-                child: const Text("Let's begin!"))
+            Button(text: "Let's Begin", nextScreen: NameScreen())
           ],
-        ),
-      )),
-    );
+        )),
+        decoration: BoxDecoration(gradient: bgGradient));
   }
 }
