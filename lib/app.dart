@@ -17,6 +17,7 @@ class App extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: elsewhereTheme,
+        debugShowCheckedModeBanner: false,
         home: Scaffold(body: QuestionPage()));
   }
 }
