@@ -20,13 +20,36 @@ final ThemeData elsewhereTheme = ThemeData.dark().copyWith(
   // textTheme: GoogleFonts.poppinsTextTheme().apply(bodyColor: Colors.white),
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(borderRadius: defaultBorderRadius),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: defaultBorderRadius,
+      borderSide: BorderSide(width: 3, color: secondary),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: defaultBorderRadius,
+      borderSide: BorderSide(width: 3, color: Colors.deepPurple),
+    ),
   ),
   toggleButtonsTheme: ToggleButtonsThemeData(
     borderRadius: defaultBorderRadius,
   ),
+  textSelectionTheme: TextSelectionThemeData(cursorColor: secondary),
 
-  floatingActionButtonTheme:
-      FloatingActionButtonThemeData(backgroundColor: secondary),
-  // elevatedButtonTheme:
-  // ElevatedButtonThemeData(style: ButtonStyle(backgroundColor: secondary)),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: secondary,
+  ),
+
+  elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+          overlayColor: MaterialStateProperty.resolveWith(
+            (states) {
+              return states.contains(MaterialState.pressed)
+                  ? Colors.grey.withOpacity(0.3)
+                  : null;
+            },
+          ),
+          animationDuration: Duration(milliseconds: 1000),
+          backgroundColor: MaterialStateProperty.all(secondary),
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+            borderRadius: defaultBorderRadius,
+          )))),
 );

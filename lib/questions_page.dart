@@ -40,18 +40,20 @@ class QuestionPage extends StatelessWidget {
                     SizedBox(
                       width: 100,
                       child: TextField(
+                        readOnly: true,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 60,
-                        ),
+                        style: TextStyle(fontSize: 60),
+                        decoration: InputDecoration(hintText: 'A'),
                       ),
                     ),
-                    SizedBox(width: 50),
+                    SizedBox(width: 35),
                     SizedBox(
                       width: 100,
                       child: TextField(
+                        readOnly: true,
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 60),
+                        decoration: InputDecoration(hintText: '5'),
                       ),
                     ),
                   ],
@@ -62,14 +64,8 @@ class QuestionPage extends StatelessWidget {
                     width: 500,
                     height: 60, // specific value
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: secondary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: defaultBorderRadius,
-                        ),
-                      ),
                       onPressed: () {},
-                      child: Text('Let\'s Play',
+                      child: Text('בדיקה',
                           style: TextStyle(
                               color: bgColor1,
                               fontSize: 20,
