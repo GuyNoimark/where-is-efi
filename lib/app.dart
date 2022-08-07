@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
 import 'package:where_is_efi/constants.dart';
 import 'package:where_is_efi/questions_page.dart';
+import 'package:where_is_efi/screens/EnterScreen.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -17,6 +19,6 @@ class App extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: elsewhereTheme,
-        home: Scaffold(body: QuestionPage()));
+        home: Scaffold(body: EnterScreen()));
   }
 }
