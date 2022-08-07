@@ -18,9 +18,9 @@ class _NameScreenState extends State<NameScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
+            const Text(
               "What's your name?",
-              textScaleFactor: 8,
+              textScaleFactor: 5,
             ),
             const SizedBox(
               width: 500,

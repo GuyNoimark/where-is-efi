@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:where_is_efi/constants.dart';
+import 'package:where_is_efi/questions_page.dart';
+import 'package:where_is_efi/screens/EnterScreen.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -15,24 +18,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: Scaffold(
-            appBar: AppBar(
-              title: const Text('test'),
-            ),
-            body: Center(
-                child: FutureBuilder<String>(
-              future: getJSON(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  saveJSON(snapshot.data.toString());
-                  return Text(snapshot.data!);
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              },
-            ))));
+        theme: elsewhereTheme,
+        home: Scaffold(body: EnterScreen()));
   }
 }
