@@ -23,7 +23,6 @@ class Button extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (final BuildContext context) => Scaffold(
-                        appBar: AppBar(title: Text("")),
                         body: nextScreen,
                       )));
         },
