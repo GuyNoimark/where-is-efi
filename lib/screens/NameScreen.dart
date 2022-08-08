@@ -1,5 +1,6 @@
 import 'dart:html';
 import 'package:flutter/material.dart';
+import 'package:neon_circular_timer/neon_circular_timer.dart';
 import 'package:where_is_efi/screens/EnterScreen.dart';
 import 'package:where_is_efi/widgets/Button.dart';
 
@@ -11,6 +12,7 @@ class NameScreen extends StatefulWidget {
 }
 
 class _NameScreenState extends State<NameScreen> {
+  final _countDownController = CountDownController();
   final myController = TextEditingController();
   @override
   Widget build(final BuildContext context) {
@@ -35,7 +37,15 @@ class _NameScreenState extends State<NameScreen> {
               ),
             ),
             Button(
-                text: "Submit", nextScreen: Container()) //TODO: question screen
+                text: "Submit",
+                nextScreen: Container(
+                  child: NeonCircularTimer(
+                    duration: 60,
+                    controller: _countDownController,
+                    width: 200,
+                    isReverse: true,
+                  ),
+                )) //TODO: question screen
           ],
         ),
       ),
