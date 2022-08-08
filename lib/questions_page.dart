@@ -27,6 +27,7 @@ class _QuestionPageState extends State<QuestionPage> {
   bool showCharKeyboard = false;
   TextEditingController _numController = TextEditingController();
   TextEditingController _charController = TextEditingController();
+  ButtonState buttonState = ButtonState.idle;
 
   bool checkAnswer() =>
       _charController.text + _numController.text == widget.answer;
@@ -115,7 +116,7 @@ class _QuestionPageState extends State<QuestionPage> {
           )),
           AnimatedPositioned(
             duration: Duration(milliseconds: 600),
-            bottom: showNumKeyboard || showCharKeyboard ? 150 : 120,
+            bottom: showNumKeyboard || showCharKeyboard ? 150 : 130,
             curve: Curves.easeInOutQuad,
             child: Center(
               child: SizedBox(
@@ -124,12 +125,23 @@ class _QuestionPageState extends State<QuestionPage> {
                 child: ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                          checkAnswer() ? Colors.lightGreen : secondary)),
+                          buttonState == ButtonState.idle
+                              ? secondary
+                              : buttonState == ButtonState.correct
+                                  ? Colors.lightGreen
+                                  : Colors.red)),
                   onPressed: () {
                     setState(() {
                       showNumKeyboard = false;
                       showCharKeyboard = false;
-                      checkAnswer;
+                      buttonState = checkAnswer()
+                          ? ButtonState.correct
+                          : ButtonState.wrong;
+                    });
+                    Future.delayed(const Duration(seconds: 2), () {
+                      setState(() {
+                        buttonState = ButtonState.idle;
+                      });
                     });
 
                     print(widget.answer +
@@ -137,9 +149,16 @@ class _QuestionPageState extends State<QuestionPage> {
                         _charController.text +
                         _numController.text);
                   },
-                  child: Text('בדיקה',
+                  child: Text(
+                      buttonState == ButtonState.idle
+                          ? 'בדיקה'
+                          : buttonState == ButtonState.correct
+                              ? 'V'
+                              : 'X',
                       style: TextStyle(
-                          color: checkAnswer() ? secondary : bgColor1,
+                          color: buttonState == ButtonState.idle
+                              ? bgColor1
+                              : secondary,
                           fontSize: 20,
                           fontWeight: FontWeight.bold)),
                 ),
@@ -174,6 +193,7 @@ enum ButtonState {
   idle,
   correct,
   wrong,
+  // TODO: Add loading state
 }
 
 class TextKey extends StatelessWidget {
