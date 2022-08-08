@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:where_is_efi/constants.dart';
 import 'package:where_is_efi/questions_page.dart';
+import 'package:where_is_efi/screens/EnterScreen.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -18,12 +19,6 @@ class App extends StatelessWidget {
         title: 'Flutter Demo',
         theme: elsewhereTheme,
         debugShowCheckedModeBanner: false,
-        home: const Scaffold(
-            body: QuestionPage(
-          numberOfQuestions: 11,
-          questionNumber: 3,
-          question: 'מה המיקום של הקרקס?',
-          answer: 'D7',
-        )));
+        home: Scaffold(body: EnterScreen()));
   }
 }
