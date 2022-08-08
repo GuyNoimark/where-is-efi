@@ -24,11 +24,7 @@ class App extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: elsewhereTheme,
-        home: FutureBuilder<Object>(
-            future: getData(),
-            builder: (context, snapshot) {
-              inspect(snapshot.data);
-              return Scaffold(body: EnterScreen());
-            }));
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(body: EnterScreen()));
   }
 }
