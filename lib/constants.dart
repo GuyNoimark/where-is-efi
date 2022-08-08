@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:where_is_efi/models/questions_model.dart';
 
 Color bgColor1 = const Color.fromARGB(255, 90, 113, 237);
 Color bgColor2 = const Color.fromARGB(255, 14, 171, 247);
@@ -53,3 +54,5 @@ final ThemeData elsewhereTheme = ThemeData.dark().copyWith(
             borderRadius: defaultBorderRadius,
           )))),
 );
+
+List<QuestionsData> questions = [];

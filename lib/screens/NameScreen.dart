@@ -1,6 +1,7 @@
 import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:neon_circular_timer/neon_circular_timer.dart';
+import 'package:where_is_efi/questions_page.dart';
 import 'package:where_is_efi/screens/EnterScreen.dart';
 import 'package:where_is_efi/widgets/Button.dart';
 
@@ -36,16 +37,16 @@ class _NameScreenState extends State<NameScreen> {
                 cursorColor: Colors.white,
               ),
             ),
-            Button(
-                text: "Submit",
-                nextScreen: Container(
-                  child: NeonCircularTimer(
-                    duration: 60,
-                    controller: _countDownController,
-                    width: 200,
-                    isReverse: true,
-                  ),
-                )) //TODO: question screen
+            const Button(
+              text: "Submit",
+              nextScreen: QuestionPage(),
+              // child: NeonCircularTimer(
+              //   duration: 60,
+              //   controller: _countDownController,
+              //   width: 200,
+              //   isReverse: true,
+              // ),
+            ) //TODO: question screen
           ],
         ),
       ),

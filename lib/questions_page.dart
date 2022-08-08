@@ -2,20 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:where_is_efi/constants.dart';
+import 'package:where_is_efi/models/questions_model.dart';
+
+import 'constants.dart';
 
 class QuestionPage extends StatefulWidget {
   const QuestionPage({
     Key? key,
-    required this.questionNumber,
-    required this.numberOfQuestions,
-    required this.question,
-    required this.answer,
   }) : super(key: key);
-
-  final int questionNumber;
-  final int numberOfQuestions;
-  final String question;
-  final String answer;
 
   @override
   State<QuestionPage> createState() => _QuestionPageState();
@@ -28,12 +22,16 @@ class _QuestionPageState extends State<QuestionPage> {
   TextEditingController _numController = TextEditingController();
   TextEditingController _charController = TextEditingController();
   ButtonState buttonState = ButtonState.idle;
+  int questionIndex = 0;
 
   bool checkAnswer() =>
-      _charController.text + _numController.text == widget.answer;
+      _charController.text + _numController.text ==
+      questions[questionIndex].answer;
 
   @override
   Widget build(BuildContext context) {
+    QuestionsData currentQuestion = questions[questionIndex];
+
     return Container(
       decoration: BoxDecoration(gradient: bgGradient),
       child: Stack(
@@ -53,19 +51,19 @@ class _QuestionPageState extends State<QuestionPage> {
                     Opacity(
                       opacity: 0.7,
                       child: Text(
-                        'שאלה ${widget.questionNumber} מתוך 10',
+                        'שאלה ${questionIndex} מתוך ${questions.length}',
                         textScaleFactor: 1.5,
                         style: TextStyle(fontWeight: FontWeight.normal),
                       ),
                     ),
                     Text(
-                      widget.question,
+                      currentQuestion.question,
                       textScaleFactor: 3,
                       textAlign: TextAlign.right,
                       textDirection: TextDirection.rtl,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 90),
+                    const SizedBox(height: 90),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -115,7 +113,7 @@ class _QuestionPageState extends State<QuestionPage> {
             ],
           )),
           AnimatedPositioned(
-            duration: Duration(milliseconds: 600),
+            duration: const Duration(milliseconds: 600),
             bottom: showNumKeyboard || showCharKeyboard ? 150 : 130,
             curve: Curves.easeInOutQuad,
             child: Center(
@@ -138,13 +136,19 @@ class _QuestionPageState extends State<QuestionPage> {
                           ? ButtonState.correct
                           : ButtonState.wrong;
                     });
+                    Future.delayed(
+                        const Duration(seconds: 1),
+                        () => setState(() => buttonState == ButtonState.correct
+                            ? questionIndex++
+                            : null));
                     Future.delayed(const Duration(seconds: 2), () {
+                      //cool :)
                       setState(() {
                         buttonState = ButtonState.idle;
                       });
                     });
 
-                    print(widget.answer +
+                    print(currentQuestion.answer +
                         ' | ' +
                         _charController.text +
                         _numController.text);
@@ -166,7 +170,7 @@ class _QuestionPageState extends State<QuestionPage> {
             ),
           ),
           AnimatedPositioned(
-            duration: Duration(milliseconds: 600),
+            duration: const Duration(milliseconds: 600),
             bottom: showNumKeyboard || showCharKeyboard ? 0 : -100,
             curve: Curves.easeInOutQuad,
             child: Keyboard(

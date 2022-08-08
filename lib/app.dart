@@ -11,13 +11,13 @@ import 'package:where_is_efi/screens/EnterScreen.dart';
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
-  Future<List<QuestionsData>> getData() async {
-    final response =
-        await http.get(Uri.parse('https://api.npoint.io/44839ea0260575d91456'));
-    return List.castFrom(jsonDecode(response.body)['questions'])
-        .map((data) => QuestionsData(data['question'], data['answer']))
-        .toList();
-  }
+  // getData().then(
+  //   (value) {
+  //     print('test');
+  //     questions = value;
+  //     inspect(value);
+  //   },
+  // );
 
   @override
   Widget build(BuildContext context) {
