@@ -1,7 +1,11 @@
 import 'dart:convert';
+import 'dart:html';
 import 'package:flutter/material.dart';
+import 'package:neon_circular_timer/neon_circular_timer.dart';
 import 'package:where_is_efi/constants.dart';
 import 'package:where_is_efi/models/questions_model.dart';
+import 'package:where_is_efi/screens/EnterScreen.dart';
+import 'package:where_is_efi/widgets/Button.dart';
 
 import 'constants.dart';
 
@@ -20,6 +24,7 @@ class _QuestionPageState extends State<QuestionPage> {
   bool showCharKeyboard = false;
   TextEditingController _numController = TextEditingController();
   TextEditingController _charController = TextEditingController();
+  CountDownController _countDownController = CountDownController();
   ButtonState buttonState = ButtonState.idle;
   int questionIndex = 0;
 
@@ -47,14 +52,55 @@ class _QuestionPageState extends State<QuestionPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Opacity(
-                      opacity: 0.7,
-                      child: Text(
-                        'שאלה ${questionIndex} מתוך ${questions.length}',
-                        textScaleFactor: 1.5,
-                        style: TextStyle(fontWeight: FontWeight.normal),
+                    Row(children: [
+                      NeonCircularTimer(
+                        onComplete: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (final BuildContext context) =>
+                                    Scaffold(
+                                  body: Center(
+                                      child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 200,
+                                        child: Container(),
+                                      ),
+                                      const Text(
+                                        "Game Over",
+                                        textScaleFactor: 3,
+                                      ),
+                                      SizedBox(
+                                        height: 100,
+                                        child: Container(),
+                                      ),
+                                      Button(
+                                          text: "Restart Game",
+                                          nextScreen: EnterScreen())
+                                    ],
+                                  )),
+                                ),
+                              ));
+                        },
+                        width: 130,
+                        duration: 60,
+                        controller: _countDownController,
+                        isReverse: true,
+                        innerFillColor: Colors.yellowAccent,
+                        neonColor: Colors.lightBlue,
+                        outerStrokeColor: Colors.amber,
                       ),
-                    ),
+                      SizedBox(width: 250, child: Container()),
+                      Opacity(
+                        opacity: 0.7,
+                        child: Text(
+                          'שאלה $questionIndex מתוך ${questions.length}',
+                          textScaleFactor: 1.5,
+                          style: const TextStyle(fontWeight: FontWeight.normal),
+                        ),
+                      ),
+                    ]),
                     Text(
                       currentQuestion.question,
                       textScaleFactor: 3,
@@ -62,7 +108,6 @@ class _QuestionPageState extends State<QuestionPage> {
                       textDirection: TextDirection.rtl,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 90),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -80,7 +125,11 @@ class _QuestionPageState extends State<QuestionPage> {
                             decoration: InputDecoration(hintText: 'A'),
                           ),
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(
+                          width: 35,
+                          height: 200,
+                          child: Container(),
+                        ),
                         SizedBox(
                           width: 100,
                           child: TextField(
