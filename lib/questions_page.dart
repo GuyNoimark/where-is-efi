@@ -50,17 +50,32 @@ class _QuestionPageState extends State<QuestionPage> {
                     Opacity(
                       opacity: 0.7,
                       child: Text(
-                        'שאלה ${questionIndex} מתוך ${questions.length}',
+                        'שאלה ${questionIndex + 1} מתוך ${questions.length}',
                         textScaleFactor: 1.5,
                         style: TextStyle(fontWeight: FontWeight.normal),
                       ),
                     ),
-                    Text(
-                      currentQuestion.question,
-                      textScaleFactor: 3,
-                      textAlign: TextAlign.right,
-                      textDirection: TextDirection.rtl,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    AnimatedSwitcher(
+                      duration: Duration(milliseconds: 400),
+                      switchInCurve: Curves.easeInOutQuad,
+                      // switchOutCurve: Curves.easeInOutQuad,
+                      transitionBuilder:
+                          (Widget child, Animation<double> animation) {
+                        return SlideTransition(
+                          child: child,
+                          position: Tween<Offset>(
+                                  begin: Offset(50, 0), end: Offset(0.0, 0.0))
+                              .animate(animation),
+                        );
+                      },
+                      child: Text(
+                        currentQuestion.question,
+                        key: ValueKey<String>(currentQuestion.question),
+                        textScaleFactor: 3,
+                        textAlign: TextAlign.right,
+                        textDirection: TextDirection.rtl,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                     const SizedBox(height: 90),
                     Row(
@@ -142,7 +157,7 @@ class _QuestionPageState extends State<QuestionPage> {
                               _numController.text = '',
                               _charController.text = ''
                             }));
-                    Future.delayed(const Duration(seconds: 2), () {
+                    Future.delayed(const Duration(milliseconds: 1500), () {
                       setState(() {
                         buttonState = ButtonState.idle;
                       });
