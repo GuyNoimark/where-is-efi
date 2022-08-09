@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:where_is_efi/constants.dart';
 import 'package:where_is_efi/models/questions_model.dart';
@@ -93,7 +92,7 @@ class _QuestionPageState extends State<QuestionPage> {
                             }),
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 60),
-                            decoration: InputDecoration(hintText: '5'),
+                            decoration: InputDecoration(hintText: '#'),
                           ),
                         ),
                       ],
@@ -138,11 +137,12 @@ class _QuestionPageState extends State<QuestionPage> {
                     });
                     Future.delayed(
                         const Duration(seconds: 1),
-                        () => setState(() => buttonState == ButtonState.correct
-                            ? questionIndex++
-                            : null));
+                        () => setState(() => {
+                              questionIndex++,
+                              _numController.text = '',
+                              _charController.text = ''
+                            }));
                     Future.delayed(const Duration(seconds: 2), () {
-                      //cool :)
                       setState(() {
                         buttonState = ButtonState.idle;
                       });
