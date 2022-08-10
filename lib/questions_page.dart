@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:where_is_efi/constants.dart';
 import 'package:where_is_efi/models/questions_model.dart';
@@ -18,8 +17,8 @@ class _QuestionPageState extends State<QuestionPage> {
   // void showNumKeyboard(Keyboard keyboard) {}
   bool showNumKeyboard = false;
   bool showCharKeyboard = false;
-  TextEditingController _numController = TextEditingController();
-  TextEditingController _charController = TextEditingController();
+  final TextEditingController _numController = TextEditingController();
+  final TextEditingController _charController = TextEditingController();
   ButtonState buttonState = ButtonState.idle;
   int questionIndex = 0;
 
@@ -52,11 +51,11 @@ class _QuestionPageState extends State<QuestionPage> {
                       child: Text(
                         'שאלה ${questionIndex + 1} מתוך ${questions.length}',
                         textScaleFactor: 1.5,
-                        style: TextStyle(fontWeight: FontWeight.normal),
+                        style: const TextStyle(fontWeight: FontWeight.normal),
                       ),
                     ),
                     AnimatedSwitcher(
-                      duration: Duration(milliseconds: 400),
+                      duration: const Duration(milliseconds: 400),
                       switchInCurve: Curves.easeInOutQuad,
                       // switchOutCurve: Curves.easeInOutQuad,
                       transitionBuilder:
@@ -64,7 +63,8 @@ class _QuestionPageState extends State<QuestionPage> {
                         return SlideTransition(
                           child: child,
                           position: Tween<Offset>(
-                                  begin: Offset(50, 0), end: Offset(0.0, 0.0))
+                                  begin: const Offset(50, 0),
+                                  end: const Offset(0.0, 0.0))
                               .animate(animation),
                         );
                       },
@@ -91,11 +91,11 @@ class _QuestionPageState extends State<QuestionPage> {
                               showNumKeyboard = false;
                             }),
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 60),
-                            decoration: InputDecoration(hintText: 'A'),
+                            style: const TextStyle(fontSize: 60),
+                            decoration: const InputDecoration(hintText: 'A'),
                           ),
                         ),
-                        SizedBox(width: 35),
+                        const SizedBox(width: 35),
                         SizedBox(
                           width: 100,
                           child: TextField(
@@ -106,13 +106,13 @@ class _QuestionPageState extends State<QuestionPage> {
                               showCharKeyboard = false;
                             }),
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 60),
-                            decoration: InputDecoration(hintText: '#'),
+                            style: const TextStyle(fontSize: 60),
+                            decoration: const InputDecoration(hintText: '#'),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 90),
+                    const SizedBox(height: 90),
                     Center(
                       child: SizedBox(
                         width: 500,
@@ -170,10 +170,10 @@ class _QuestionPageState extends State<QuestionPage> {
                                       MaterialPageRoute(
                                           builder:
                                               (final BuildContext context) =>
-                                                  Scaffold(
+                                                  const Scaffold(
                                                       body:
                                                           Text('End of game'))))
-                                  // TODO: Inswer the restart page
+                                  // TODO: Insert the restart page
                                   : questionIndex++,
                               _numController.text = '',
                               _charController.text = ''
@@ -292,7 +292,7 @@ class Keyboard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: secondary,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
