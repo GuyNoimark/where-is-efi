@@ -144,16 +144,33 @@ class _QuestionPageState extends State<QuestionPage> {
                                   : Colors.red)),
                   onPressed: () {
                     setState(() {
-                      showNumKeyboard = false;
-                      showCharKeyboard = false;
-                      buttonState = checkAnswer()
-                          ? ButtonState.correct
-                          : ButtonState.wrong;
+                      buttonState = ButtonState.loading;
                     });
                     Future.delayed(
                         const Duration(seconds: 1),
+                        () => {
+                              setState(() {
+                                showNumKeyboard = false;
+                                showCharKeyboard = false;
+                                buttonState = checkAnswer()
+                                    ? ButtonState.correct
+                                    : ButtonState.wrong;
+                              })
+                            });
+                    Future.delayed(
+                        const Duration(seconds: 1),
                         () => setState(() => {
-                              questionIndex++,
+                              questionIndex + 1 == questions.length
+                                  ? Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder:
+                                              (final BuildContext context) =>
+                                                  Scaffold(
+                                                      body:
+                                                          Text('End of game'))))
+                                  // TODO: Inswer the restart page
+                                  : questionIndex++,
                               _numController.text = '',
                               _charController.text = ''
                             }));
@@ -212,7 +229,7 @@ enum ButtonState {
   idle,
   correct,
   wrong,
-  // TODO: Add loading state
+  loading,
 }
 
 class TextKey extends StatelessWidget {
