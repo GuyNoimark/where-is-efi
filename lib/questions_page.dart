@@ -1,3 +1,4 @@
+import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:where_is_efi/constants.dart';
 import 'package:where_is_efi/models/questions_model.dart';
@@ -21,6 +22,7 @@ class _QuestionPageState extends State<QuestionPage> {
   final TextEditingController _charController = TextEditingController();
   ButtonState buttonState = ButtonState.idle;
   int questionIndex = 0;
+  int score = 0;
 
   bool checkAnswer() =>
       _charController.text + _numController.text ==
@@ -164,6 +166,9 @@ class _QuestionPageState extends State<QuestionPage> {
                         const Duration(milliseconds: 1500),
                         () => setState(() => {
                               print('question++'),
+                              buttonState == ButtonState.correct
+                                  ? score += 100
+                                  : null,
                               questionIndex + 1 == questions.length
                                   ? Navigator.push(
                                       context,
@@ -226,6 +231,23 @@ class _QuestionPageState extends State<QuestionPage> {
                                 : _charController.text = text;
                           },
                         ))),
+          ),
+          Positioned(
+            top: 20,
+            right: 20,
+            child: SizedBox(
+                height: 50,
+                width: 100,
+                child: Chip(
+                    avatar: Icon(Icons.emoji_events),
+                    label: Center(
+                      child: AnimatedFlipCounter(
+                        value: score,
+                        // textStyle: TextStyle(),
+                        duration: const Duration(seconds: 1),
+                        // curve: Curves.bounceIn,
+                      ),
+                    ))),
           ),
         ],
       ),
