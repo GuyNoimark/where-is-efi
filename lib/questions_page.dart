@@ -137,18 +137,20 @@ class _QuestionPageState extends State<QuestionPage> {
                 child: ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                          buttonState == ButtonState.idle
-                              ? secondary
+                          buttonState == ButtonState.wrong
+                              ? Colors.red
                               : buttonState == ButtonState.correct
                                   ? Colors.lightGreen
-                                  : Colors.red)),
+                                  : secondary)),
                   onPressed: () {
+                    print('button pressed');
                     setState(() {
                       buttonState = ButtonState.loading;
                     });
                     Future.delayed(
                         const Duration(seconds: 1),
                         () => {
+                              print('button set state'),
                               setState(() {
                                 showNumKeyboard = false;
                                 showCharKeyboard = false;
@@ -157,9 +159,11 @@ class _QuestionPageState extends State<QuestionPage> {
                                     : ButtonState.wrong;
                               })
                             });
+
                     Future.delayed(
-                        const Duration(seconds: 1),
+                        const Duration(milliseconds: 1500),
                         () => setState(() => {
+                              print('question++'),
                               questionIndex + 1 == questions.length
                                   ? Navigator.push(
                                       context,
@@ -174,7 +178,8 @@ class _QuestionPageState extends State<QuestionPage> {
                               _numController.text = '',
                               _charController.text = ''
                             }));
-                    Future.delayed(const Duration(milliseconds: 1500), () {
+                    Future.delayed(const Duration(milliseconds: 2000), () {
+                      print('button set idle');
                       setState(() {
                         buttonState = ButtonState.idle;
                       });
@@ -188,11 +193,14 @@ class _QuestionPageState extends State<QuestionPage> {
                   child: Text(
                       buttonState == ButtonState.idle
                           ? 'בדיקה'
-                          : buttonState == ButtonState.correct
-                              ? 'V'
-                              : 'X',
+                          : buttonState == ButtonState.loading
+                              ? '....'
+                              : buttonState == ButtonState.correct
+                                  ? 'V'
+                                  : 'X',
                       style: TextStyle(
-                          color: buttonState == ButtonState.idle
+                          color: buttonState == ButtonState.idle ||
+                                  buttonState == ButtonState.loading
                               ? bgColor1
                               : secondary,
                           fontSize: 20,
