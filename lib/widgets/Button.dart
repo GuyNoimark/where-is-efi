@@ -1,11 +1,14 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
 class Button extends StatelessWidget {
-  const Button({required this.text, required this.nextScreen});
+  const Button({required this.text, required this.nextScreen, this.onTap});
   final String text;
   final Widget nextScreen;
+  final Function? onTap;
   @override
   Widget build(final BuildContext context) {
     return SizedBox(
@@ -19,6 +22,7 @@ class Button extends StatelessWidget {
           ),
         ),
         onPressed: () {
+          onTap!();
           Navigator.push(
               context,
               MaterialPageRoute(

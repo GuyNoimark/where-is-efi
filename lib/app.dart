@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:where_is_efi/constants.dart';
 import 'package:where_is_efi/models/questions_model.dart';
 import 'package:where_is_efi/questions_page.dart';
-import 'package:where_is_efi/screens/EnterScreen.dart';
+import 'package:where_is_efi/EnterScreen.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);

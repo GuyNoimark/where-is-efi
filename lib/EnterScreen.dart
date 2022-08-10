@@ -1,10 +1,10 @@
 import 'dart:html';
 import 'package:where_is_efi/constants.dart';
 
-import '../widgets/Button.dart';
+import 'widgets/Button.dart';
 import 'NameScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:where_is_efi/screens/NameScreen.dart';
+import 'package:where_is_efi/NameScreen.dart';
 
 class EnterScreen extends StatefulWidget {
   @override
