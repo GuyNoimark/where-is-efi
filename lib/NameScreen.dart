@@ -2,18 +2,20 @@ import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:neon_circular_timer/neon_circular_timer.dart';
 import 'package:where_is_efi/questions_page.dart';
-import 'package:where_is_efi/screens/EnterScreen.dart';
+import 'package:where_is_efi/EnterScreen.dart';
 import 'package:where_is_efi/widgets/Button.dart';
+import 'globals.dart' as globals;
 
-import '../constants.dart';
+import 'constants.dart';
 
 class NameScreen extends StatefulWidget {
+  const NameScreen({Key? key}) : super(key: key);
+
   @override
   State<NameScreen> createState() => _NameScreenState();
 }
 
 class _NameScreenState extends State<NameScreen> {
-  final _countDownController = CountDownController();
   final myController = TextEditingController();
   @override
   Widget build(final BuildContext context) {
@@ -37,9 +39,12 @@ class _NameScreenState extends State<NameScreen> {
                 cursorColor: Colors.white,
               ),
             ),
-            const Button(
+            Button(
               text: "Submit",
-              nextScreen: QuestionPage(),
+              nextScreen: const QuestionPage(),
+              onTap: () {
+                globals.playerName = myController.text;
+              },
               // child: NeonCircularTimer(
               //   duration: 60,
               //   controller: _countDownController,
