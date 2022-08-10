@@ -22,9 +22,9 @@ class _QuestionPageState extends State<QuestionPage> {
   // void showNumKeyboard(Keyboard keyboard) {}
   bool showNumKeyboard = false;
   bool showCharKeyboard = false;
-  TextEditingController _numController = TextEditingController();
-  TextEditingController _charController = TextEditingController();
-  CountDownController _countDownController = CountDownController();
+  final TextEditingController _numController = TextEditingController();
+  final TextEditingController _charController = TextEditingController();
+  final CountDownController _countDownController = CountDownController();
   ButtonState buttonState = ButtonState.idle;
   int questionIndex = 0;
 
@@ -53,6 +53,7 @@ class _QuestionPageState extends State<QuestionPage> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Row(children: [
+                      //  SizedBox(width: 100, child: Container()),
                       NeonCircularTimer(
                         onComplete: () {
                           Navigator.push(
@@ -83,31 +84,39 @@ class _QuestionPageState extends State<QuestionPage> {
                                 ),
                               ));
                         },
-                        width: 130,
+                        width: 90,
                         duration: 60,
                         controller: _countDownController,
                         isReverse: true,
                         innerFillColor: Colors.yellowAccent,
                         neonColor: Colors.lightBlue,
                         outerStrokeColor: Colors.amber,
+                        isTimerTextShown: true,
+                        isReverseAnimation: true,
+                        textStyle: const TextStyle(fontSize: 25),
                       ),
-                      SizedBox(width: 250, child: Container()),
-                      Opacity(
-                        opacity: 0.7,
-                        child: Text(
-                          'שאלה $questionIndex מתוך ${questions.length}',
-                          textScaleFactor: 1.5,
-                          style: const TextStyle(fontWeight: FontWeight.normal),
-                        ),
+                      SizedBox(width: 150, child: Container()),
+                      Column(
+                        children: [
+                          Opacity(
+                            opacity: 0.7,
+                            child: Text(
+                              'שאלה $questionIndex מתוך ${questions.length}',
+                              textScaleFactor: 1.5,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal),
+                            ),
+                          ),
+                          Text(
+                            currentQuestion.question,
+                            textScaleFactor: 3,
+                            textAlign: TextAlign.right,
+                            textDirection: TextDirection.rtl,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ]),
-                    Text(
-                      currentQuestion.question,
-                      textScaleFactor: 3,
-                      textAlign: TextAlign.right,
-                      textDirection: TextDirection.rtl,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -121,8 +130,8 @@ class _QuestionPageState extends State<QuestionPage> {
                               showNumKeyboard = false;
                             }),
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 60),
-                            decoration: InputDecoration(hintText: 'A'),
+                            style: const TextStyle(fontSize: 60),
+                            decoration: const InputDecoration(hintText: 'A'),
                           ),
                         ),
                         SizedBox(
@@ -140,13 +149,13 @@ class _QuestionPageState extends State<QuestionPage> {
                               showCharKeyboard = false;
                             }),
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 60),
-                            decoration: InputDecoration(hintText: '#'),
+                            style: const TextStyle(fontSize: 60),
+                            decoration: const InputDecoration(hintText: '#'),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 90),
+                    const SizedBox(height: 90),
                     Center(
                       child: SizedBox(
                         width: 500,
@@ -301,7 +310,7 @@ class Keyboard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: secondary,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
