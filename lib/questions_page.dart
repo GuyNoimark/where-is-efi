@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:html';
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:neon_circular_timer/neon_circular_timer.dart';
@@ -68,28 +66,7 @@ class _QuestionPageState extends State<QuestionPage> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (final BuildContext context) =>
-                                            Scaffold(
-                                          body: Center(
-                                              child: Column(
-                                            children: [
-                                              SizedBox(
-                                                height: 200,
-                                                child: Container(),
-                                              ),
-                                              const Text(
-                                                "Game Over",
-                                                textScaleFactor: 3,
-                                              ),
-                                              SizedBox(
-                                                height: 100,
-                                                child: Container(),
-                                              ),
-                                              Button(
-                                                  text: "Restart Game",
-                                                  nextScreen: EnterScreen())
-                                            ],
-                                          )),
-                                        ),
+                                            const GameOverScreen(),
                                       ));
                                 },
                                 width: 90,
@@ -164,7 +141,7 @@ class _QuestionPageState extends State<QuestionPage> {
                                       const InputDecoration(hintText: 'A'),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 35,
                               ),
                               SizedBox(
@@ -205,7 +182,7 @@ class _QuestionPageState extends State<QuestionPage> {
                 curve: Curves.easeInOutQuad,
                 child: Center(
                   child: SizedBox(
-                    width: 500,
+                    width: 700,
                     height: 60, // specific value
                     child: ElevatedButton(
                       style: ButtonStyle(
@@ -246,10 +223,7 @@ class _QuestionPageState extends State<QuestionPage> {
                                           MaterialPageRoute(
                                               builder: (final BuildContext
                                                       context) =>
-                                                  const Scaffold(
-                                                      body:
-                                                          Text('End of game'))))
-                                      // TODO: Insert the restart page
+                                                  const GameOverScreen()))
                                       : questionIndex++,
                                   _numController.text = '',
                                   _charController.text = ''
@@ -310,7 +284,7 @@ class _QuestionPageState extends State<QuestionPage> {
                     height: 50,
                     width: 100,
                     child: Chip(
-                        avatar: Icon(Icons.emoji_events),
+                        avatar: const Icon(Icons.emoji_events),
                         label: Center(
                           child: AnimatedFlipCounter(
                             value: score,
@@ -321,6 +295,36 @@ class _QuestionPageState extends State<QuestionPage> {
                         ))),
               ),
             ]));
+  }
+}
+
+class GameOverScreen extends StatelessWidget {
+  const GameOverScreen({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+          child: Column(
+        children: [
+          SizedBox(
+            height: 200,
+            child: Container(),
+          ),
+          const Text(
+            "Game Over",
+            textScaleFactor: 3,
+          ),
+          SizedBox(
+            height: 100,
+            child: Container(),
+          ),
+          const Button(text: "Restart Game", nextScreen: EnterScreen())
+        ],
+      )),
+    );
   }
 }
 

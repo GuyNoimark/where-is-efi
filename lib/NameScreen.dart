@@ -9,6 +9,8 @@ import 'globals.dart' as globals;
 import 'constants.dart';
 
 class NameScreen extends StatefulWidget {
+  const NameScreen({Key? key}) : super(key: key);
+
   @override
   State<NameScreen> createState() => _NameScreenState();
 }
