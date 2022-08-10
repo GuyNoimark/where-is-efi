@@ -1,7 +1,12 @@
+import 'dart:convert';
+import 'dart:html';
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
+import 'package:neon_circular_timer/neon_circular_timer.dart';
 import 'package:where_is_efi/constants.dart';
 import 'package:where_is_efi/models/questions_model.dart';
+import 'package:where_is_efi/screens/EnterScreen.dart';
+import 'package:where_is_efi/widgets/Button.dart';
 import 'globals.dart' as globals;
 import 'constants.dart';
 
@@ -20,6 +25,8 @@ class _QuestionPageState extends State<QuestionPage> {
   bool showCharKeyboard = false;
   final TextEditingController _numController = TextEditingController();
   final TextEditingController _charController = TextEditingController();
+  final CountDownController _countDownController = CountDownController();
+
   ButtonState buttonState = ButtonState.idle;
   int questionIndex = 0;
   int score = 0;
@@ -52,6 +59,52 @@ class _QuestionPageState extends State<QuestionPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
+                    Row(children: [
+                      //  SizedBox(width: 100, child: Container()),
+                      NeonCircularTimer(
+                        onComplete: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (final BuildContext context) =>
+                                    Scaffold(
+                                  body: Center(
+                                      child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 200,
+                                        child: Container(),
+                                      ),
+                                      const Text(
+                                        "Game Over",
+                                        textScaleFactor: 3,
+                                      ),
+                                      SizedBox(
+                                        height: 100,
+                                        child: Container(),
+                                      ),
+                                      Button(
+                                          text: "Restart Game",
+                                          nextScreen: EnterScreen())
+                                    ],
+                                  )),
+                                ),
+                              ));
+                        },
+                        width: 90,
+                        duration: 60,
+                        controller: _countDownController,
+                        isReverse: true,
+                        innerFillColor: Colors.yellowAccent,
+                        neonColor: Colors.lightBlue,
+                        outerStrokeColor: Colors.amber,
+                        isTimerTextShown: true,
+                        isReverseAnimation: true,
+                        textStyle: const TextStyle(fontSize: 25),
+                      ),
+                      SizedBox(width: 150, child: Container()),
+                      Column(
+                        children: [
                     Opacity(
                       opacity: 0.7,
                       child: Text(
@@ -101,7 +154,11 @@ class _QuestionPageState extends State<QuestionPage> {
                             decoration: const InputDecoration(hintText: 'A'),
                           ),
                         ),
-                        const SizedBox(width: 35),
+                        SizedBox(
+                          width: 35,
+                          height: 200,
+                          child: Container(),
+                        ),
                         SizedBox(
                           width: 100,
                           child: TextField(
