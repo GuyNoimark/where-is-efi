@@ -73,12 +73,23 @@ class _QuestionPageState extends State<QuestionPage> {
                                 duration: 60,
                                 controller: _countDownController,
                                 isReverse: true,
-                                innerFillColor: Colors.yellowAccent,
-                                neonColor: Colors.lightBlue,
-                                outerStrokeColor: Colors.amber,
+                                neumorphicEffect: false,
+                                innerFillGradient: LinearGradient(colors: [
+                                  Colors.yellowAccent.shade200,
+                                  Colors.orange
+                                ]),
+                                neonColor: secondary.withOpacity(0.1),
+                                textFormat: TextFormat.SS,
+                                // neonGradient: LinearGradient(colors: [
+                                //   Colors.greenAccent.shade200,
+                                //   Colors.blueAccent.shade400
+                                // ]),
+                                // innerFillColor: Colors.yellowAccent,
+                                // neonColor: Colors.lightBlue,
+                                // outerStrokeColor: Colors.amber,
                                 isTimerTextShown: true,
                                 isReverseAnimation: true,
-                                textStyle: const TextStyle(fontSize: 25),
+                                textStyle: const TextStyle(fontSize: 30),
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
