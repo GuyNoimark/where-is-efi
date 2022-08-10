@@ -1,7 +1,4 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-
 import '../constants.dart';
 
 class Button extends StatelessWidget {
@@ -22,7 +19,7 @@ class Button extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          // onTap!();
+          onTap!();
           Navigator.push(
               context,
               MaterialPageRoute(

@@ -321,7 +321,7 @@ class GameOverScreen extends StatelessWidget {
             height: 100,
             child: Container(),
           ),
-          const Button(text: "Restart Game", nextScreen: EnterScreen())
+          Button(text: "Restart Game", nextScreen: EnterScreen(), onTap: () {})
         ],
       )),
     );

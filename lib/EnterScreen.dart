@@ -1,6 +1,4 @@
-import 'dart:html';
 import 'package:where_is_efi/constants.dart';
-
 import 'widgets/Button.dart';
 import 'package:flutter/material.dart';
 import 'package:where_is_efi/NameScreen.dart';
@@ -19,12 +17,16 @@ class _EnterScreenState extends State<EnterScreen> {
         child: Center(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: const [
-            Text(
+          children: [
+            const Text(
               'Elsewhere',
               textScaleFactor: 10,
             ),
-            Button(text: "Let's Begin", nextScreen: NameScreen())
+            Button(
+              text: "Let's Begin",
+              nextScreen: NameScreen(),
+              onTap: () {},
+            )
           ],
         )),
         decoration: BoxDecoration(gradient: bgGradient));
