@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -7,6 +8,7 @@ import 'package:where_is_efi/constants.dart';
 import 'package:where_is_efi/models/questions_model.dart';
 import 'package:where_is_efi/questions_page.dart';
 import 'package:where_is_efi/EnterScreen.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -48,10 +50,11 @@ class LoadPageState extends State {
   }
 
   checkForInternet() async {
-    bool result = await InternetConnectionChecker().hasConnection;
+    bool result = true;
+    !kIsWeb ? result = await InternetConnectionChecker().hasConnection : null;
     SharedPreferences localPreferences = await SharedPreferences.getInstance();
 
-    if (result == true) {
+    if (result) {
       getData().then((value) {
         setState(() {
           questions = convertData(value);
