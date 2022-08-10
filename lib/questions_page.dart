@@ -2,7 +2,7 @@ import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:where_is_efi/constants.dart';
 import 'package:where_is_efi/models/questions_model.dart';
-
+import 'globals.dart' as globals;
 import 'constants.dart';
 
 class QuestionPage extends StatefulWidget {
@@ -27,6 +27,10 @@ class _QuestionPageState extends State<QuestionPage> {
   bool checkAnswer() =>
       _charController.text + _numController.text ==
       questions[questionIndex].answer;
+  void gameOver() {
+    //todo: call when timer is complete
+    globals.playerScore = score;
+  }
 
   @override
   Widget build(BuildContext context) {
