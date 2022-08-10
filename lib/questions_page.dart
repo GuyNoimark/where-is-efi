@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:where_is_efi/constants.dart';
 import 'package:where_is_efi/models/questions_model.dart';
@@ -18,8 +17,8 @@ class _QuestionPageState extends State<QuestionPage> {
   // void showNumKeyboard(Keyboard keyboard) {}
   bool showNumKeyboard = false;
   bool showCharKeyboard = false;
-  TextEditingController _numController = TextEditingController();
-  TextEditingController _charController = TextEditingController();
+  final TextEditingController _numController = TextEditingController();
+  final TextEditingController _charController = TextEditingController();
   ButtonState buttonState = ButtonState.idle;
   int questionIndex = 0;
 
@@ -50,17 +49,33 @@ class _QuestionPageState extends State<QuestionPage> {
                     Opacity(
                       opacity: 0.7,
                       child: Text(
-                        'שאלה ${questionIndex} מתוך ${questions.length}',
+                        'שאלה ${questionIndex + 1} מתוך ${questions.length}',
                         textScaleFactor: 1.5,
-                        style: TextStyle(fontWeight: FontWeight.normal),
+                        style: const TextStyle(fontWeight: FontWeight.normal),
                       ),
                     ),
-                    Text(
-                      currentQuestion.question,
-                      textScaleFactor: 3,
-                      textAlign: TextAlign.right,
-                      textDirection: TextDirection.rtl,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 400),
+                      switchInCurve: Curves.easeInOutQuad,
+                      // switchOutCurve: Curves.easeInOutQuad,
+                      transitionBuilder:
+                          (Widget child, Animation<double> animation) {
+                        return SlideTransition(
+                          child: child,
+                          position: Tween<Offset>(
+                                  begin: const Offset(50, 0),
+                                  end: const Offset(0.0, 0.0))
+                              .animate(animation),
+                        );
+                      },
+                      child: Text(
+                        currentQuestion.question,
+                        key: ValueKey<String>(currentQuestion.question),
+                        textScaleFactor: 3,
+                        textAlign: TextAlign.right,
+                        textDirection: TextDirection.rtl,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                     const SizedBox(height: 90),
                     Row(
@@ -76,11 +91,11 @@ class _QuestionPageState extends State<QuestionPage> {
                               showNumKeyboard = false;
                             }),
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 60),
-                            decoration: InputDecoration(hintText: 'A'),
+                            style: const TextStyle(fontSize: 60),
+                            decoration: const InputDecoration(hintText: 'A'),
                           ),
                         ),
-                        SizedBox(width: 35),
+                        const SizedBox(width: 35),
                         SizedBox(
                           width: 100,
                           child: TextField(
@@ -91,13 +106,13 @@ class _QuestionPageState extends State<QuestionPage> {
                               showCharKeyboard = false;
                             }),
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 60),
-                            decoration: InputDecoration(hintText: '#'),
+                            style: const TextStyle(fontSize: 60),
+                            decoration: const InputDecoration(hintText: '#'),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 90),
+                    const SizedBox(height: 90),
                     Center(
                       child: SizedBox(
                         width: 500,
@@ -122,27 +137,49 @@ class _QuestionPageState extends State<QuestionPage> {
                 child: ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                          buttonState == ButtonState.idle
-                              ? secondary
+                          buttonState == ButtonState.wrong
+                              ? Colors.red
                               : buttonState == ButtonState.correct
                                   ? Colors.lightGreen
-                                  : Colors.red)),
+                                  : secondary)),
                   onPressed: () {
+                    print('button pressed');
                     setState(() {
-                      showNumKeyboard = false;
-                      showCharKeyboard = false;
-                      buttonState = checkAnswer()
-                          ? ButtonState.correct
-                          : ButtonState.wrong;
+                      buttonState = ButtonState.loading;
                     });
                     Future.delayed(
                         const Duration(seconds: 1),
+                        () => {
+                              print('button set state'),
+                              setState(() {
+                                showNumKeyboard = false;
+                                showCharKeyboard = false;
+                                buttonState = checkAnswer()
+                                    ? ButtonState.correct
+                                    : ButtonState.wrong;
+                              })
+                            });
+
+                    Future.delayed(
+                        const Duration(milliseconds: 1500),
                         () => setState(() => {
-                              questionIndex++,
+                              print('question++'),
+                              questionIndex + 1 == questions.length
+                                  ? Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder:
+                                              (final BuildContext context) =>
+                                                  const Scaffold(
+                                                      body:
+                                                          Text('End of game'))))
+                                  // TODO: Insert the restart page
+                                  : questionIndex++,
                               _numController.text = '',
                               _charController.text = ''
                             }));
-                    Future.delayed(const Duration(seconds: 2), () {
+                    Future.delayed(const Duration(milliseconds: 2000), () {
+                      print('button set idle');
                       setState(() {
                         buttonState = ButtonState.idle;
                       });
@@ -156,11 +193,14 @@ class _QuestionPageState extends State<QuestionPage> {
                   child: Text(
                       buttonState == ButtonState.idle
                           ? 'בדיקה'
-                          : buttonState == ButtonState.correct
-                              ? 'V'
-                              : 'X',
+                          : buttonState == ButtonState.loading
+                              ? '....'
+                              : buttonState == ButtonState.correct
+                                  ? 'V'
+                                  : 'X',
                       style: TextStyle(
-                          color: buttonState == ButtonState.idle
+                          color: buttonState == ButtonState.idle ||
+                                  buttonState == ButtonState.loading
                               ? bgColor1
                               : secondary,
                           fontSize: 20,
@@ -197,7 +237,7 @@ enum ButtonState {
   idle,
   correct,
   wrong,
-  // TODO: Add loading state
+  loading,
 }
 
 class TextKey extends StatelessWidget {
@@ -252,7 +292,7 @@ class Keyboard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: secondary,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
