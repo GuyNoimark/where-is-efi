@@ -9,6 +9,7 @@ import 'package:where_is_efi/models/questions_model.dart';
 import 'package:where_is_efi/questions_page.dart';
 import 'package:where_is_efi/EnterScreen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/services.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -33,6 +34,7 @@ class LoadPage extends StatefulWidget {
 class LoadPageState extends State {
   @override
   void initState() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     super.initState();
     checkForInternet();
   }
@@ -50,11 +52,20 @@ class LoadPageState extends State {
   }
 
   checkForInternet() async {
-    bool result = true;
-    !kIsWeb ? result = await InternetConnectionChecker().hasConnection : null;
+    bool result = await InternetConnectionChecker().hasConnection;
     SharedPreferences localPreferences = await SharedPreferences.getInstance();
 
     if (result) {
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: ((context) {
+            Future.delayed(Duration(seconds: 5), () {
+              Navigator.of(context).pop(true);
+            });
+            return Center(child: CircularProgressIndicator());
+          }));
+
       getData().then((value) {
         setState(() {
           questions = convertData(value);

@@ -52,7 +52,7 @@ class _QuestionPageState extends State<QuestionPage> {
                   children: [
                     Expanded(child: Container(), flex: 2),
                     Expanded(
-                      flex: 4,
+                      flex: 6,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -189,7 +189,7 @@ class _QuestionPageState extends State<QuestionPage> {
               ),
               AnimatedPositioned(
                 duration: const Duration(milliseconds: 600),
-                bottom: showNumKeyboard || showCharKeyboard ? 150 : 130,
+                bottom: showNumKeyboard || showCharKeyboard ? 120 : 90,
                 curve: Curves.easeInOutQuad,
                 child: Center(
                   child: SizedBox(
