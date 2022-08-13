@@ -1,16 +1,44 @@
-# where_is_efi
+# Where Is Efi?
 
-A new Flutter project.
+## Description
 
-## Getting Started
+This is a simple quiz app developed for "Elsewhere" project.
 
-This project is a starting point for a Flutter application.
+## Table of Contents (Optional)
 
-A few resources to get you started if this is your first Flutter project:
+If your README is long, add a table of contents to make it easy for users to find what they need.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Credits](#credits)
+- [License](#license)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Installation
+
+- Install flutter SDK - https://docs.flutter.dev/get-started/install
+
+- run flutter pub get
+
+```
+$ flutter pub get
+```
+
+- flutter run
+
+```
+$ flutter pub get
+```
+
+## Usage
+
+TODO: add screenshots
+
+## Credits
+
+[Ido Sobol](https://github.com/Ido-Sobol)
+
+## License
+
+TBD
+
+---
