@@ -8,7 +8,6 @@ import 'package:where_is_efi/constants.dart';
 import 'package:where_is_efi/models/questions_model.dart';
 import 'package:where_is_efi/EnterScreen.dart';
 import 'package:where_is_efi/widgets/Button.dart';
-import 'package:where_is_efi/widgets/scoll_wheel.dart';
 import 'globals.dart' as globals;
 import 'constants.dart';
 import 'package:http/http.dart' as http;
