@@ -22,6 +22,8 @@ class _EnterScreenState extends State<EnterScreen> {
               'Elsewhere',
               textScaleFactor: 10,
             ),
+            SizedBox(
+                height: 200, child: Image.asset('assets/magnifying-glass.png')),
             Button(
               text: "Let's Begin",
               nextScreen: NameScreen(),
