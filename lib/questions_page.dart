@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:animated_flip_counter/animated_flip_counter.dart';
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:neon_circular_timer/neon_circular_timer.dart';
 import 'package:wheel_chooser/wheel_chooser.dart';
@@ -404,22 +406,58 @@ class GameOverScreen extends StatelessWidget {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 bool isWinner = jsonDecode(snapshot.data)['winner'];
-                print(jsonDecode(snapshot.data)['winner']);
-                // TODO: Later change the actions
-                if (isWinner) {
-                  return Text('Winner :)');
-                } else {
-                  return Text('Looser :(');
+                print('Is winner: ' + isWinner.toString());
+                // TODO: Change in production
+                if (true) {
+                  return AutoConfetti();
                 }
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               } else {
-                return CircularProgressIndicator();
+                return Container();
               }
             },
           ),
         ],
       )),
+    );
+  }
+}
+
+class AutoConfetti extends StatefulWidget {
+  const AutoConfetti({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<AutoConfetti> createState() => _AutoConfettiState();
+}
+
+class _AutoConfettiState extends State<AutoConfetti> {
+  final ConfettiController _confettiController =
+      ConfettiController(duration: const Duration(seconds: 5));
+
+  @override
+  void initState() {
+    super.initState();
+    _confettiController.play();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ConfettiWidget(
+      confettiController: _confettiController,
+      blastDirectionality: BlastDirectionality.explosive, // radial value - LEFT
+      particleDrag: 0.05, // apply drag to the confetti
+      emissionFrequency: 0.05, // how often it should emit
+      numberOfParticles: 20, // number of particles to emit
+      gravity: 0.05, // gravity - or fall speed
+      shouldLoop: false,
+      colors: const [
+        Colors.green,
+        Colors.blue,
+        Colors.pink
+      ], // manually specify the colors to be used
     );
   }
 }
