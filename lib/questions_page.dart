@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:neon_circular_timer/neon_circular_timer.dart';
@@ -9,6 +11,7 @@ import 'package:where_is_efi/widgets/Button.dart';
 import 'package:where_is_efi/widgets/scoll_wheel.dart';
 import 'globals.dart' as globals;
 import 'constants.dart';
+import 'package:http/http.dart' as http;
 
 class QuestionPage extends StatefulWidget {
   const QuestionPage({
@@ -68,9 +71,12 @@ class _QuestionPageState extends State<QuestionPage> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (final BuildContext context) =>
-                                            const GameOverScreen(),
+                                            GameOverScreen(
+                                                time: _countDownController
+                                                    .getTimeInSeconds()),
                                       ));
                                 },
+                                // initialDuration: 60,
                                 width: 90,
                                 duration: 60,
                                 controller: _countDownController,
@@ -263,7 +269,9 @@ class _QuestionPageState extends State<QuestionPage> {
                                           MaterialPageRoute(
                                               builder: (final BuildContext
                                                       context) =>
-                                                  const GameOverScreen()))
+                                                  GameOverScreen(
+                                                      time: _countDownController
+                                                          .getTimeInSeconds())))
                                       : questionIndex++,
                                   _numController.text = '',
                                   _charController.text = ''
@@ -341,7 +349,24 @@ class _QuestionPageState extends State<QuestionPage> {
 class GameOverScreen extends StatelessWidget {
   const GameOverScreen({
     Key? key,
+    required this.time,
   }) : super(key: key);
+
+  final int time;
+  Future<String> sendData() async {
+    const String stand = 'WhereIsEfi1'; //TODO: switch for different APK's
+    final response = await http.get(Uri.parse(
+        'https://iddofroom.wixsite.com/elsewhere/_functions/winner?stand=$stand&resualt=$time'));
+    // body: jsonEncode(data);
+    return response.body;
+
+    // headers: <String, String>{
+    //   'Content-Type': 'application/json; charset=UTF-8',
+    //   'Access-Control-Allow-Origin': '*',
+    //   'Access-Control-Allow-Headers': 'Content-Type',
+    //   'Referrer-Policy': 'no-referrer-when-downgrade'
+    // },
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -361,7 +386,30 @@ class GameOverScreen extends StatelessWidget {
             height: 100,
             child: Container(),
           ),
-          Button(text: "Restart Game", nextScreen: EnterScreen(), onTap: () {})
+          Button(text: "Restart Game", nextScreen: EnterScreen(), onTap: () {}),
+          SizedBox(
+            height: 100,
+            child: Container(),
+          ),
+          FutureBuilder(
+            future: sendData(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                bool isWinner = jsonDecode(snapshot.data)['winner'];
+                print(jsonDecode(snapshot.data)['winner']);
+                // TODO: Later change the actions
+                if (isWinner) {
+                  return Text('Winner :)');
+                } else {
+                  return Text('Looser :(');
+                }
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              } else {
+                return CircularProgressIndicator();
+              }
+            },
+          ),
         ],
       )),
     );

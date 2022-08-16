@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.where_is_efi">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="where_is_efi"
         android:name="${applicationName}"

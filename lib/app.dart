@@ -36,49 +36,16 @@ class LoadPageState extends State {
   void initState() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     super.initState();
-    checkForInternet();
+    getData().then((value) => questions = convertData(value));
   }
 
-  Future<String> getData() async {
-    final response =
-        await http.get(Uri.parse('https://api.npoint.io/44839ea0260575d91456'));
-    return response.body;
-  }
+  Future<String> getData() async =>
+      await rootBundle.loadString('assets/data.json');
 
   List<QuestionsData> convertData(String json) {
     return List.castFrom(jsonDecode(json)['questions'])
         .map((data) => QuestionsData(data['question'], data['answer']))
         .toList();
-  }
-
-  checkForInternet() async {
-    bool result = await InternetConnectionChecker().hasConnection;
-    SharedPreferences localPreferences = await SharedPreferences.getInstance();
-
-    if (result) {
-      showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: ((context) {
-            Future.delayed(Duration(seconds: 5), () {
-              Navigator.of(context).pop(true);
-            });
-            return Center(child: CircularProgressIndicator());
-          }));
-
-      getData().then((value) {
-        setState(() {
-          questions = convertData(value);
-          localPreferences.setString('data', value);
-          print('Fetched from internet: ' + value);
-        });
-      });
-    } else {
-      print('No internet :( using old data');
-      setState(() {
-        questions = convertData(localPreferences.getString('data').toString());
-      });
-    }
   }
 
   @override
