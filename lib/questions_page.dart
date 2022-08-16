@@ -1,10 +1,12 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:neon_circular_timer/neon_circular_timer.dart';
+import 'package:wheel_chooser/wheel_chooser.dart';
 import 'package:where_is_efi/constants.dart';
 import 'package:where_is_efi/models/questions_model.dart';
 import 'package:where_is_efi/EnterScreen.dart';
 import 'package:where_is_efi/widgets/Button.dart';
+import 'package:where_is_efi/widgets/scoll_wheel.dart';
 import 'globals.dart' as globals;
 import 'constants.dart';
 
@@ -134,44 +136,71 @@ class _QuestionPageState extends State<QuestionPage> {
                             ],
                           ),
                           const SizedBox(height: 90),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          Stack(
+                            alignment: Alignment.center,
                             children: [
                               SizedBox(
-                                width: 100,
-                                child: TextField(
-                                  readOnly: true,
-                                  controller: _charController,
-                                  onTap: () => setState(() {
-                                    showCharKeyboard = true;
-                                    showNumKeyboard = false;
-                                  }),
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(fontSize: 60),
-                                  decoration:
-                                      const InputDecoration(hintText: 'A'),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 35,
+                                height: 70,
+                                width: 70,
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                  borderRadius: defaultBorderRadius,
+                                  border:
+                                      Border.all(color: secondary, width: 3),
+                                )),
                               ),
                               SizedBox(
-                                width: 100,
-                                child: TextField(
-                                  readOnly: true,
-                                  controller: _numController,
-                                  onTap: () => setState(() {
-                                    showNumKeyboard = true;
-                                    showCharKeyboard = false;
-                                  }),
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(fontSize: 60),
-                                  decoration:
-                                      const InputDecoration(hintText: '#'),
+                                height: 100,
+                                child: WheelChooser(
+                                  onValueChanged: (s) => setState(() =>
+                                      _charController.text = s.toString()),
+                                  datas: List.generate(
+                                      10,
+                                      (index) =>
+                                          String.fromCharCode(index + 65)),
+                                  horizontal: true,
+                                  itemSize: 60,
+                                  selectTextStyle: const TextStyle(
+                                    fontSize: 28,
+                                  ),
+                                  startPosition: 5,
+                                  unSelectTextStyle: TextStyle(
+                                      fontSize: 25,
+                                      color: Colors.white.withOpacity(0.5)),
                                 ),
                               ),
                             ],
                           ),
+                          const SizedBox(height: 20),
+                          Stack(alignment: Alignment.center, children: [
+                            SizedBox(
+                              height: 70,
+                              width: 70,
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                borderRadius: defaultBorderRadius,
+                                border: Border.all(color: secondary, width: 3),
+                              )),
+                            ),
+                            SizedBox(
+                              height: 100,
+                              child: WheelChooser.integer(
+                                onValueChanged: (s) => setState(
+                                    () => _numController.text = s.toString()),
+                                maxValue: 10,
+                                minValue: 1,
+                                initValue: 5,
+                                horizontal: true,
+                                itemSize: 60,
+                                selectTextStyle: const TextStyle(
+                                  fontSize: 28,
+                                ),
+                                unSelectTextStyle: TextStyle(
+                                    fontSize: 25,
+                                    color: Colors.white.withOpacity(0.5)),
+                              ),
+                            ),
+                          ]),
                           const SizedBox(height: 90),
                           Center(
                             child: SizedBox(
@@ -270,24 +299,24 @@ class _QuestionPageState extends State<QuestionPage> {
                   ),
                 ),
               ),
-              AnimatedPositioned(
-                duration: const Duration(milliseconds: 600),
-                bottom: showNumKeyboard || showCharKeyboard ? 0 : -100,
-                curve: Curves.easeInOutQuad,
-                child: Keyboard(
-                    keys: List.generate(
-                        10,
-                        (index) => TextKey(
-                              text: showNumKeyboard
-                                  ? (index + 1).toString()
-                                  : String.fromCharCode(index + 65),
-                              onClick: (text) {
-                                showNumKeyboard
-                                    ? _numController.text = text
-                                    : _charController.text = text;
-                              },
-                            ))),
-              ),
+              // AnimatedPositioned(
+              //   duration: const Duration(milliseconds: 600),
+              //   bottom: showNumKeyboard || showCharKeyboard ? 0 : -100,
+              //   curve: Curves.easeInOutQuad,
+              //   child: Keyboard(
+              //       keys: List.generate(
+              //           10,
+              //           (index) => TextKey(
+              //                 text: showNumKeyboard
+              //                     ? (index + 1).toString()
+              //                     : String.fromCharCode(index + 65),
+              //                 onClick: (text) {
+              //                   showNumKeyboard
+              //                       ? _numController.text = text
+              //                       : _charController.text = text;
+              //                 },
+              //               ))),
+              // ),
               Positioned(
                 top: 20,
                 right: 20,
