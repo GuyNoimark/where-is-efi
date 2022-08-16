@@ -39,7 +39,8 @@ class LoadPageState extends State {
     getData().then((value) => questions = convertData(value));
   }
 
-  Future<String> getData() async => await rootBundle.loadString('data.json');
+  Future<String> getData() async =>
+      await rootBundle.loadString('assets/data.json');
 
   List<QuestionsData> convertData(String json) {
     return List.castFrom(jsonDecode(json)['questions'])
