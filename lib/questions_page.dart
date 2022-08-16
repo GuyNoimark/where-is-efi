@@ -27,6 +27,10 @@ class _QuestionPageState extends State<QuestionPage> {
   bool showCharKeyboard = false;
   final TextEditingController _numController = TextEditingController();
   final TextEditingController _charController = TextEditingController();
+  final FixedExtentScrollController _controller1 =
+      FixedExtentScrollController(initialItem: 4);
+  final FixedExtentScrollController _controller2 =
+      FixedExtentScrollController(initialItem: 4);
   final CountDownController _countDownController = CountDownController();
 
   ButtonState buttonState = ButtonState.idle;
@@ -44,7 +48,6 @@ class _QuestionPageState extends State<QuestionPage> {
   @override
   Widget build(BuildContext context) {
     QuestionsData currentQuestion = questions[questionIndex];
-
     return Container(
         decoration: BoxDecoration(gradient: bgGradient),
         child: Stack(
@@ -156,7 +159,8 @@ class _QuestionPageState extends State<QuestionPage> {
                               ),
                               SizedBox(
                                 height: 100,
-                                child: WheelChooser(
+                                child: WheelChooser.byController(
+                                  controller: _controller1,
                                   onValueChanged: (s) => setState(() =>
                                       _charController.text = s.toString()),
                                   datas: List.generate(
@@ -168,7 +172,6 @@ class _QuestionPageState extends State<QuestionPage> {
                                   selectTextStyle: const TextStyle(
                                     fontSize: 28,
                                   ),
-                                  startPosition: 5,
                                   unSelectTextStyle: TextStyle(
                                       fontSize: 25,
                                       color: Colors.white.withOpacity(0.5)),
@@ -194,7 +197,7 @@ class _QuestionPageState extends State<QuestionPage> {
                                     () => _numController.text = s.toString()),
                                 maxValue: 10,
                                 minValue: 1,
-                                initValue: 5,
+                                controller: _controller2,
                                 horizontal: true,
                                 itemSize: 60,
                                 selectTextStyle: const TextStyle(
@@ -259,6 +262,12 @@ class _QuestionPageState extends State<QuestionPage> {
                             const Duration(milliseconds: 1500),
                             () => setState(() => {
                                   print('question++'),
+                                  _controller1.animateToItem(4,
+                                      duration: Duration(seconds: 1),
+                                      curve: Curves.easeInOutCubic),
+                                  _controller2.animateToItem(4,
+                                      duration: Duration(seconds: 1),
+                                      curve: Curves.easeInOutCubic),
                                   buttonState == ButtonState.correct
                                       ? score += 100
                                       : null,
