@@ -10,9 +10,12 @@ import 'package:where_is_efi/constants.dart';
 import 'package:where_is_efi/models/questions_model.dart';
 import 'package:where_is_efi/EnterScreen.dart';
 import 'package:where_is_efi/widgets/Button.dart';
+import 'package:where_is_efi/winning_texts.dart';
 import 'globals.dart' as globals;
 import 'constants.dart';
 import 'package:http/http.dart' as http;
+
+import 'globals.dart';
 
 class QuestionPage extends StatefulWidget {
   const QuestionPage({
@@ -43,7 +46,6 @@ class _QuestionPageState extends State<QuestionPage> {
       _charController.text + _numController.text ==
       questions[questionIndex].answer;
   void gameOver() {
-    //todo: call when timer is complete
     globals.playerScore = score;
   }
 
@@ -380,16 +382,22 @@ class GameOverScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WinningTexts _winningText = WinningTexts.NOTHING;
+
     return Scaffold(
       body: Center(
           child: Column(
         children: [
           SizedBox(
-            height: 200,
+            height: 180,
             child: Container(),
           ),
           const Text(
             "Game Over",
+            textScaleFactor: 3,
+          ),
+          Text(
+            _winningText.message,
             textScaleFactor: 3,
           ),
           SizedBox(
@@ -406,6 +414,12 @@ class GameOverScreen extends StatelessWidget {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 bool isWinner = jsonDecode(snapshot.data)['winner'];
+                if (isWinner) {
+                  _winningText = WinningTexts.PRIZE;
+                } else {
+                  _winningText = WinningTexts.NOTHING;
+                }
+                //TODO: need to check for record break
                 print('Is winner: ' + isWinner.toString());
                 // TODO: Change in production
                 if (true) {
