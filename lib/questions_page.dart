@@ -86,7 +86,7 @@ class _QuestionPageState extends State<QuestionPage> {
                                 width: 90,
                                 duration: 60,
                                 controller: _countDownController,
-                                isReverse: true,
+                                isReverse: false,
                                 neumorphicEffect: false,
                                 innerFillGradient: LinearGradient(colors: [
                                   Colors.yellowAccent.shade200,
