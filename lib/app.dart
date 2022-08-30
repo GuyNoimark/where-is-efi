@@ -35,6 +35,7 @@ class LoadPageState extends State {
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
     super.initState();
     getData().then((value) => questions = convertData(value));
   }

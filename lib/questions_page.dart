@@ -75,40 +75,11 @@ class _QuestionPageState extends State<QuestionPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              NeonCircularTimer(
-                                onComplete: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (final BuildContext context) =>
-                                            GameOverScreen(
-                                                time: _countDownController
-                                                    .getTimeInSeconds()),
-                                      ));
-                                },
-                                // initialDuration: 60,
-                                width: 90,
-                                duration: 60,
-                                controller: _countDownController,
-                                isReverse: false,
-                                neumorphicEffect: false,
-                                innerFillGradient: LinearGradient(colors: [
-                                  Colors.yellowAccent.shade200,
-                                  Colors.orange
-                                ]),
-                                neonColor: secondary.withOpacity(0.1),
-                                textFormat: TextFormat.SS,
-                                // neonGradient: LinearGradient(colors: [
-                                //   Colors.greenAccent.shade200,
-                                //   Colors.blueAccent.shade400
-                                // ]),
-                                // innerFillColor: Colors.yellowAccent,
-                                // neonColor: Colors.lightBlue,
-                                // outerStrokeColor: Colors.amber,
-                                isTimerTextShown: true,
-                                isReverseAnimation: true,
-                                textStyle: const TextStyle(fontSize: 30),
-                              ),
+                              Container(
+                                  width: 100,
+                                  height: 100,
+                                  color: Colors.grey,
+                                  child: Icon(Icons.access_time_outlined)),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -323,24 +294,6 @@ class _QuestionPageState extends State<QuestionPage> {
                   ),
                 ),
               ),
-              // AnimatedPositioned(
-              //   duration: const Duration(milliseconds: 600),
-              //   bottom: showNumKeyboard || showCharKeyboard ? 0 : -100,
-              //   curve: Curves.easeInOutQuad,
-              //   child: Keyboard(
-              //       keys: List.generate(
-              //           10,
-              //           (index) => TextKey(
-              //                 text: showNumKeyboard
-              //                     ? (index + 1).toString()
-              //                     : String.fromCharCode(index + 65),
-              //                 onClick: (text) {
-              //                   showNumKeyboard
-              //                       ? _numController.text = text
-              //                       : _charController.text = text;
-              //                 },
-              //               ))),
-              // ),
               Positioned(
                 top: 20,
                 right: 20,
@@ -358,6 +311,42 @@ class _QuestionPageState extends State<QuestionPage> {
                           ),
                         ))),
               ),
+              Positioned(
+                top: 20,
+                left: 20,
+                child: NeonCircularTimer(
+                  onComplete: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (final BuildContext context) =>
+                              GameOverScreen(
+                                  time:
+                                      _countDownController.getTimeInSeconds()),
+                        ));
+                  },
+                  // initialDuration: 60,
+                  width: 90,
+                  duration: 60,
+                  controller: _countDownController,
+                  isReverse: false,
+                  neumorphicEffect: false,
+                  innerFillGradient: LinearGradient(
+                      colors: [Colors.yellowAccent.shade200, Colors.orange]),
+                  neonColor: secondary.withOpacity(0.1),
+                  textFormat: TextFormat.SS,
+                  // neonGradient: LinearGradient(colors: [
+                  //   Colors.greenAccent.shade200,
+                  //   Colors.blueAccent.shade400
+                  // ]),
+                  // innerFillColor: Colors.yellowAccent,
+                  // neonColor: Colors.lightBlue,
+                  // outerStrokeColor: Colors.amber,
+                  isTimerTextShown: true,
+                  isReverseAnimation: true,
+                  textStyle: const TextStyle(fontSize: 30),
+                ),
+              )
             ]));
   }
 }
