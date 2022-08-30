@@ -78,8 +78,8 @@ class _QuestionPageState extends State<QuestionPage> {
                               Container(
                                   width: 100,
                                   height: 100,
-                                  color: Colors.grey,
-                                  child: Icon(Icons.access_time_outlined)),
+                                  // color: Colors.grey,
+                                  child: images[questionIndex]),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 mainAxisAlignment: MainAxisAlignment.center,

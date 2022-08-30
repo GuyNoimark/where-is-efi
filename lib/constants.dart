@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:where_is_efi/models/questions_model.dart';
 
@@ -56,3 +57,5 @@ final ThemeData elsewhereTheme = ThemeData.dark().copyWith(
 );
 
 List<QuestionsData> questions = [];
+
+List<CachedNetworkImage> images = [];
