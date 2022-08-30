@@ -30,11 +30,9 @@ class _QuestionPageState extends State<QuestionPage> {
   // void showNumKeyboard(Keyboard keyboard) {}
   bool showNumKeyboard = false;
   bool showCharKeyboard = false;
-  final TextEditingController _numController = TextEditingController();
-  final TextEditingController _charController = TextEditingController();
-  final FixedExtentScrollController _controller1 =
+  final FixedExtentScrollController _charController =
       FixedExtentScrollController(initialItem: 4);
-  final FixedExtentScrollController _controller2 =
+  final FixedExtentScrollController _numController =
       FixedExtentScrollController(initialItem: 4);
   final CountDownController _countDownController = CountDownController();
 
@@ -42,9 +40,15 @@ class _QuestionPageState extends State<QuestionPage> {
   int questionIndex = 0;
   int score = 0;
 
+  List<String> charItems =
+      List.generate(10, (index) => String.fromCharCode(index + 65));
+  List<int> numItems = List.generate(10, (index) => index);
+
   bool checkAnswer() =>
-      _charController.text + _numController.text ==
+      charItems[_charController.selectedItem] +
+          (_numController.selectedItem + 1).toString() ==
       questions[questionIndex].answer;
+
   void gameOver() {
     globals.playerScore = score;
   }
@@ -164,9 +168,8 @@ class _QuestionPageState extends State<QuestionPage> {
                               SizedBox(
                                 height: 100,
                                 child: WheelChooser.byController(
-                                  controller: _controller1,
-                                  onValueChanged: (s) => setState(() =>
-                                      _charController.text = s.toString()),
+                                  controller: _charController,
+                                  onValueChanged: (s) => setState(() => {}),
                                   datas: List.generate(
                                       10,
                                       (index) =>
@@ -197,11 +200,10 @@ class _QuestionPageState extends State<QuestionPage> {
                             SizedBox(
                               height: 100,
                               child: WheelChooser.integer(
-                                onValueChanged: (s) => setState(
-                                    () => _numController.text = s.toString()),
+                                onValueChanged: (s) => setState(() => {}),
                                 maxValue: 10,
                                 minValue: 1,
-                                controller: _controller2,
+                                controller: _numController,
                                 horizontal: true,
                                 itemSize: 60,
                                 selectTextStyle: const TextStyle(
@@ -256,6 +258,8 @@ class _QuestionPageState extends State<QuestionPage> {
                                   setState(() {
                                     showNumKeyboard = false;
                                     showCharKeyboard = false;
+
+                                    print(checkAnswer());
                                     buttonState = checkAnswer()
                                         ? ButtonState.correct
                                         : ButtonState.wrong;
@@ -266,10 +270,10 @@ class _QuestionPageState extends State<QuestionPage> {
                             const Duration(milliseconds: 1500),
                             () => setState(() => {
                                   print('question++'),
-                                  _controller1.animateToItem(4,
+                                  _charController.animateToItem(4,
                                       duration: Duration(seconds: 1),
                                       curve: Curves.easeInOutCubic),
-                                  _controller2.animateToItem(4,
+                                  _numController.animateToItem(4,
                                       duration: Duration(seconds: 1),
                                       curve: Curves.easeInOutCubic),
                                   buttonState == ButtonState.correct
@@ -285,8 +289,8 @@ class _QuestionPageState extends State<QuestionPage> {
                                                       time: _countDownController
                                                           .getTimeInSeconds())))
                                       : questionIndex++,
-                                  _numController.text = '',
-                                  _charController.text = ''
+                                  // _numController.text = '',
+                                  // _charController.text = ''
                                 }));
                         Future.delayed(const Duration(milliseconds: 2000), () {
                           print('button set idle');
@@ -297,8 +301,8 @@ class _QuestionPageState extends State<QuestionPage> {
 
                         print(currentQuestion.answer +
                             ' | ' +
-                            _charController.text +
-                            _numController.text);
+                            charItems[_charController.selectedItem] +
+                            (_numController.selectedItem + 1).toString());
                       },
                       child: Text(
                           buttonState == ButtonState.idle
