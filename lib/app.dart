@@ -54,7 +54,7 @@ class LoadPageState extends State {
   //     await rootBundle.loadString('assets/data.json');
 
   List<QuestionsData> convertData(String json) {
-    return List.castFrom(jsonDecode(json)['questions'])
+    return List.castFrom(jsonDecode(json))
         .map((data) => QuestionsData(data['question'], data['answer']))
         .toList();
   }
@@ -89,6 +89,7 @@ class LoadPageState extends State {
         questions = convertData(json);
         saveJsonOnDevice(json);
       });
+      print('Fetched from internet: $json');
 
       // ADD Firebase
       ListResult imagesRef =
@@ -97,15 +98,13 @@ class LoadPageState extends State {
         String link = await image.getDownloadURL();
         images.add(CachedNetworkImage(imageUrl: link));
       }
-
-      print('Fetched from internet: ' + json);
+      print('Fetched ${images.length} images from internet');
     } else {
       print('No internet :( using old data');
       setState(() {
         questions = convertData(localPreferences.getString('data').toString());
       });
     }
-    // inspect(images);
     return true;
   }
 

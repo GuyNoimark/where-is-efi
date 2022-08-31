@@ -17,13 +17,19 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -46,30 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAv8L26b3aAYl9ztzzQDk8DjajSrBNBjhA',
-    appId: '1:674226541494:web:461dfd579ee821794ea717',
-    messagingSenderId: '674226541494',
-    projectId: 'elsewhere-efi',
-    authDomain: 'elsewhere-efi.firebaseapp.com',
-    storageBucket: 'elsewhere-efi.appspot.com',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCMTDhGPdQi8nX3oSGZYqOlDh6jf7O_dlc',
     appId: '1:674226541494:android:8af422b8edc49a074ea717',
     messagingSenderId: '674226541494',
     projectId: 'elsewhere-efi',
     storageBucket: 'elsewhere-efi.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD9cqodYvk14PuTkabGrGrVPiJwDPvfqIQ',
-    appId: '1:674226541494:ios:e28850fe20da40e54ea717',
-    messagingSenderId: '674226541494',
-    projectId: 'elsewhere-efi',
-    storageBucket: 'elsewhere-efi.appspot.com',
-    iosClientId: '674226541494-65gg3r2h3dk0r4uab23lr0gngkrg18k8.apps.googleusercontent.com',
-    iosBundleId: 'com.example.whereIsEfi',
   );
 }
