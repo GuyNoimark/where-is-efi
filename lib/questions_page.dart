@@ -316,14 +316,14 @@ class _QuestionPageState extends State<QuestionPage> {
                 left: 20,
                 child: NeonCircularTimer(
                   onComplete: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (final BuildContext context) =>
-                              GameOverScreen(
-                                  time:
-                                      _countDownController.getTimeInSeconds()),
-                        ));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (final BuildContext context) =>
+                    //           GameOverScreen(
+                    //               time:
+                    //                   _countDownController.getTimeInSeconds()),
+                    //     ));
                   },
                   // initialDuration: 60,
                   width: 90,
