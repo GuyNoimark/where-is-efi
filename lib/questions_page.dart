@@ -257,6 +257,7 @@ class _QuestionPageState extends State<QuestionPage> {
                                               builder: (final BuildContext
                                                       context) =>
                                                   GameOverScreen(
+                                                      score: score,
                                                       time: _countDownController
                                                           .getTimeInSeconds())))
                                       : questionIndex++,
@@ -355,9 +356,11 @@ class GameOverScreen extends StatelessWidget {
   const GameOverScreen({
     Key? key,
     required this.time,
+    required this.score,
   }) : super(key: key);
 
   final int time;
+  final int score;
   Future<String> sendData() async {
     const String stand = 'WhereIsEfi1'; //TODO: switch for different APK's
     final response = await http.get(Uri.parse(
@@ -386,12 +389,22 @@ class GameOverScreen extends StatelessWidget {
             child: Container(),
           ),
           const Text(
-            "Game Over",
+            "GAME OVER",
             textScaleFactor: 3,
+          ),
+          SizedBox(
+            height: 20,
           ),
           Text(
             _winningText.message,
-            textScaleFactor: 3,
+            textScaleFactor: 2,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            'Your score is: $score',
+            textScaleFactor: 2,
           ),
           SizedBox(
             height: 100,
@@ -409,15 +422,14 @@ class GameOverScreen extends StatelessWidget {
                 bool isWinner = jsonDecode(snapshot.data)['winner'];
                 if (isWinner) {
                   _winningText = WinningTexts.PRIZE;
+                  return AutoConfetti();
                 } else {
                   _winningText = WinningTexts.NOTHING;
+                  return Container();
                 }
                 //TODO: need to check for record break
                 print('Is winner: ' + isWinner.toString());
                 // TODO: Change in production
-                if (true) {
-                  return AutoConfetti();
-                }
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               } else {
