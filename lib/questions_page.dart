@@ -14,6 +14,7 @@ import 'package:where_is_efi/winning_texts.dart';
 import 'globals.dart' as globals;
 import 'constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:audioplayers/audioplayers.dart';
 
 import 'globals.dart';
 
@@ -422,13 +423,15 @@ class GameOverScreen extends StatelessWidget {
                 bool isWinner = jsonDecode(snapshot.data)['winner'];
                 if (isWinner) {
                   _winningText = WinningTexts.PRIZE;
+                  AudioPlayer player = AudioPlayer();
+                  const winnerSound = "tadaa-47995-cut.mp3";
+                  player.play(AssetSource(winnerSound));
                   return AutoConfetti();
                 } else {
                   _winningText = WinningTexts.NOTHING;
                   return Container();
                 }
                 //TODO: need to check for record break
-                print('Is winner: ' + isWinner.toString());
                 // TODO: Change in production
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
