@@ -319,20 +319,21 @@ class _QuestionPageState extends State<QuestionPage> {
                 left: 20,
                 child: NeonCircularTimer(
                   onComplete: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (final BuildContext context) =>
-                    //           GameOverScreen(
-                    //               time:
-                    //                   _countDownController.getTimeInSeconds()),
-                    //     ));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (final BuildContext context) =>
+                              GameOverScreen(
+                                  score: score,
+                                  time:
+                                      _countDownController.getTimeInSeconds()),
+                        ));
                   },
                   // initialDuration: 60,
                   width: 90,
                   duration: 60,
                   controller: _countDownController,
-                  isReverse: false,
+                  isReverse: true,
                   neumorphicEffect: false,
                   innerFillGradient: LinearGradient(
                       colors: [Colors.yellowAccent.shade200, Colors.orange]),
