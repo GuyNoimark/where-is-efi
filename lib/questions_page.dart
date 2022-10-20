@@ -80,7 +80,9 @@ class _QuestionPageState extends State<QuestionPage> {
                                   width: 100,
                                   height: 100,
                                   // color: Colors.grey,
-                                  child: images[questionIndex]),
+                                  child: images.length > 0
+                                      ? images[questionIndex]
+                                      : Container()),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 mainAxisAlignment: MainAxisAlignment.center,

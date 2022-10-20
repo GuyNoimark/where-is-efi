@@ -75,13 +75,18 @@ class LoadPageState extends State {
     localPreferences.setString('data', json);
   }
 
+  bool enableFirebaseImages = false;
+
   Future getQuestionsAndImages() async {
     bool hasInternetConnection = await checkForInternet();
     SharedPreferences localPreferences = await SharedPreferences.getInstance();
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    FirebaseStorage.instanceFor(bucket: "gs://elsewhere-efi.appspot.com/");
+
+    if (enableFirebaseImages) {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      FirebaseStorage.instanceFor(bucket: "gs://elsewhere-efi.appspot.com/");
+    }
 
     if (hasInternetConnection) {
       String json = await getData();
@@ -91,14 +96,16 @@ class LoadPageState extends State {
       });
       print('Fetched from internet: $json');
 
-      // ADD Firebase
-      ListResult imagesRef =
-          await FirebaseStorage.instance.ref('/images').listAll();
-      for (Reference image in imagesRef.items) {
-        String link = await image.getDownloadURL();
-        images.add(CachedNetworkImage(imageUrl: link));
+      if (enableFirebaseImages) {
+        // ADD Firebase
+        ListResult imagesRef =
+            await FirebaseStorage.instance.ref('/images').listAll();
+        for (Reference image in imagesRef.items) {
+          String link = await image.getDownloadURL();
+          images.add(CachedNetworkImage(imageUrl: link));
+        }
+        print('Fetched ${images.length} images from internet');
       }
-      print('Fetched ${images.length} images from internet');
     } else {
       print('No internet :( using old data');
       setState(() {
