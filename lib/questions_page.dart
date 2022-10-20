@@ -42,7 +42,8 @@ class _QuestionPageState extends State<QuestionPage> {
   int score = 0;
 
   List<String> charItems =
-      List.generate(10, (index) => String.fromCharCode(index + 65));
+      List<String>.generate(12, (index) => String.fromCharCode(index + 65))
+        ..removeWhere((element) => element == "D");
   List<int> numItems = List.generate(10, (index) => index);
 
   bool checkAnswer() =>
@@ -144,11 +145,7 @@ class _QuestionPageState extends State<QuestionPage> {
                                 child: WheelChooser.byController(
                                   controller: _charController,
                                   onValueChanged: (s) => setState(() => {}),
-                                  datas: List<String>.generate(
-                                      12,
-                                      (index) =>
-                                          String.fromCharCode(index + 65))
-                                    ..removeWhere((element) => element == "D"),
+                                  datas: charItems,
                                   horizontal: true,
                                   itemSize: 60,
                                   selectTextStyle: const TextStyle(
