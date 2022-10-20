@@ -142,10 +142,11 @@ class _QuestionPageState extends State<QuestionPage> {
                                 child: WheelChooser.byController(
                                   controller: _charController,
                                   onValueChanged: (s) => setState(() => {}),
-                                  datas: List.generate(
-                                      10,
+                                  datas: List<String>.generate(
+                                      12,
                                       (index) =>
-                                          String.fromCharCode(index + 65)),
+                                          String.fromCharCode(index + 65))
+                                    ..removeWhere((element) => element == "D"),
                                   horizontal: true,
                                   itemSize: 60,
                                   selectTextStyle: const TextStyle(
@@ -173,7 +174,7 @@ class _QuestionPageState extends State<QuestionPage> {
                               height: 100,
                               child: WheelChooser.integer(
                                 onValueChanged: (s) => setState(() => {}),
-                                maxValue: 10,
+                                maxValue: 4,
                                 minValue: 1,
                                 controller: _numController,
                                 horizontal: true,
