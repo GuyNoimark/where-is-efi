@@ -2,7 +2,7 @@
 
 This is a simple quiz app developed for "Elsewhere" project.
 
-![alt text](assets\Elsewhere-Mockup-4.png)
+![App Screens](/assets/Elsewhere-Mockup-4.png)
 
 ## Table of Contents
 
