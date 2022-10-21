@@ -36,6 +36,8 @@ $ flutter run
 
 ## Usage
 
+![Screens](/assets/Screens-2.png)
+
 ## Database
 
 Questions and answers should be updated via [npoint.io](https://www.npoint.io/).
