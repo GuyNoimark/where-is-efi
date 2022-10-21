@@ -1,12 +1,13 @@
 # Where Is Efi?
 
-## Description
-
 This is a simple quiz app developed for "Elsewhere" project.
+
+![alt text](assets\Elsewhere-Mockup-4.png)
 
 ## Table of Contents
 
 - [Installation](#installation)
+- [Build](#build)
 - [Usage](#usage)
 - [Database](#database)
 - [Credits](#credits)
@@ -14,23 +15,26 @@ This is a simple quiz app developed for "Elsewhere" project.
 
 ## Installation
 
-- Install flutter SDK - https://docs.flutter.dev/get-started/install
+1. Go to [Releases](https://github.com/GuyNoimark/where-is-efi/releases)
 
-- run flutter pub get
+2. Scroll to the latest release (v0.0.2)
+
+3. Download "where-is-efi-tablets.apk
+
+4. Install APK on the android tablet
+
+## Build
+
+Install flutter SDK - https://docs.flutter.dev/get-started/install
+
+Run the following commands:
 
 ```
 $ flutter pub get
-```
-
-- flutter run
-
-```
 $ flutter run
 ```
 
 ## Usage
-
-TODO: add screenshots
 
 ## Database
 
