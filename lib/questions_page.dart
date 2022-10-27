@@ -404,6 +404,9 @@ class GameOverScreen extends StatelessWidget {
           const Text(
             "GAME OVER",
             textScaleFactor: 3,
+            style: TextStyle(
+              fontFamily: 'Avenir',
+            ),
           ),
           const SizedBox(
             height: 20,
@@ -411,6 +414,9 @@ class GameOverScreen extends StatelessWidget {
           Text(
             _winningText.message,
             textScaleFactor: 2,
+            style: TextStyle(
+              fontFamily: 'Avenir',
+            ),
           ),
           const SizedBox(
             height: 20,
@@ -418,6 +424,9 @@ class GameOverScreen extends StatelessWidget {
           Text(
             'Your score is: $score',
             textScaleFactor: 2,
+            style: TextStyle(
+              fontFamily: 'Avenir',
+            ),
           ),
           SizedBox(
             height: 100,
