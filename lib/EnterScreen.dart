@@ -11,6 +11,12 @@ class EnterScreen extends StatefulWidget {
 }
 
 class _EnterScreenState extends State<EnterScreen> {
+  bool isPressed = false;
+
+  Image buttonIdle = Image.asset('assets/new_design/mat/start_Button_01.png');
+  Image buttonPressed =
+      Image.asset('assets/new_design/mat/start_Button_02.png');
+
   @override
   Widget build(final BuildContext context) {
     return Container(
@@ -33,10 +39,23 @@ class _EnterScreenState extends State<EnterScreen> {
                 fontFamily: 'Albatros',
               ),
             ),
-            IconButton(
-              icon: Image.asset('assets/new_design/mat/start_Button_01.png'),
-              iconSize: 400,
-              onPressed: () {
+            GestureDetector(
+              child: SizedBox(
+                width: 400,
+                height: 400,
+                child: !isPressed ? buttonIdle : buttonPressed,
+              ),
+              onTapDown: (tapDownDetails) => setState(() => isPressed = true),
+              onTapCancel: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (final BuildContext context) => const Scaffold(
+                              body: NameScreen(),
+                            )));
+              },
+              onTap: () {
+                setState(() => isPressed = true);
                 Navigator.push(
                     context,
                     MaterialPageRoute(

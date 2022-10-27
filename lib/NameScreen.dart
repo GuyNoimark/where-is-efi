@@ -19,6 +19,7 @@ class _NameScreenState extends State<NameScreen> {
     return Container(
       decoration: BoxDecoration(
         image: const DecorationImage(
+          fit: BoxFit.fill,
           opacity: 0.7,
           image:
               AssetImage('assets/new_design/mat/Eifo_Efi_01a_Background.png'),
