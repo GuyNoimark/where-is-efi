@@ -101,6 +101,7 @@ class _QuestionPageState extends State<QuestionPage> {
                                       'שאלה ${questionIndex + 1} מתוך ${questions.length}',
                                       textScaleFactor: 1.5,
                                       style: const TextStyle(
+                                          fontFamily: 'DancingScript',
                                           fontWeight: FontWeight.normal),
                                     ),
                                   ),
@@ -122,10 +123,11 @@ class _QuestionPageState extends State<QuestionPage> {
                                       currentQuestion.question,
                                       key: ValueKey<String>(
                                           currentQuestion.question),
-                                      textScaleFactor: 3,
+                                      textScaleFactor: 4,
                                       textAlign: TextAlign.right,
                                       textDirection: TextDirection.rtl,
                                       style: const TextStyle(
+                                          fontFamily: 'Albatros',
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),

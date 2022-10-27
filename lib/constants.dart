@@ -19,7 +19,6 @@ Color secondary = Colors.white;
 BorderRadius defaultBorderRadius = BorderRadius.circular(20);
 
 final ThemeData elsewhereTheme = ThemeData.dark().copyWith(
-  // textTheme: GoogleFonts.poppinsTextTheme().apply(bodyColor: Colors.white),
   // inputDecorationTheme: InputDecorationTheme(
   //   fillColor: Colors.whi,
   // border: UnderlineInputBorder(borderRadius: defaultBorderRadius),

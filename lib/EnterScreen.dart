@@ -29,6 +29,9 @@ class _EnterScreenState extends State<EnterScreen> {
             const Text(
               '?איפה אפי',
               textScaleFactor: 10,
+              style: TextStyle(
+                fontFamily: 'Albatros',
+              ),
             ),
             IconButton(
               icon: Image.asset('assets/new_design/mat/start_Button_01.png'),

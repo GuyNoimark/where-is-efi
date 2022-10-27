@@ -32,6 +32,9 @@ class _NameScreenState extends State<NameScreen> {
             const Text(
               "?מה שמך",
               textScaleFactor: 7,
+              style: TextStyle(
+                fontFamily: 'Albatros',
+              ),
             ),
             SizedBox(
               height: 30,
@@ -41,18 +44,21 @@ class _NameScreenState extends State<NameScreen> {
               height: 60,
               child: TextField(
                 // obscureText: false,
-                style: TextStyle(color: bgColor1),
+                style: TextStyle(fontFamily: 'DancingScript', color: bgColor1),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
-                  border:
-                      UnderlineInputBorder(borderRadius: defaultBorderRadius),
+                  border: UnderlineInputBorder(
+                      borderRadius: BorderRadius.circular(5)),
                   // labelStyle: TextStyle(color: bgColor1),
                   // labelText: 'שם',
                 ),
                 controller: myController,
                 cursorColor: bgColor1,
               ),
+            ),
+            SizedBox(
+              height: 40,
             ),
             GestureDetector(
               child: SizedBox(
