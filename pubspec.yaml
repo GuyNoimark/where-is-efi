@@ -71,6 +71,7 @@ flutter:
   assets:
     # - assets/data.json
     - assets/
+    - assets/new_design/mat/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
+// import 'dart:html';
 import 'dart:io';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -39,6 +41,8 @@ class LoadPage extends StatefulWidget {
 
 class LoadPageState extends State {
   late final Future futureData;
+  bool enableFirebaseImages = false;
+  bool useLocalDeveloperQuestions = true;
 
   @override
   void initState() {
@@ -75,8 +79,6 @@ class LoadPageState extends State {
     localPreferences.setString('data', json);
   }
 
-  bool enableFirebaseImages = false;
-
   Future getQuestionsAndImages() async {
     bool hasInternetConnection = await checkForInternet();
     SharedPreferences localPreferences = await SharedPreferences.getInstance();
@@ -88,7 +90,99 @@ class LoadPageState extends State {
       FirebaseStorage.instanceFor(bucket: "gs://elsewhere-efi.appspot.com/");
     }
 
-    if (hasInternetConnection) {
+    if (!hasInternetConnection && !useLocalDeveloperQuestions) {
+      print('No internet :( using old data');
+      setState(() {
+        questions = convertData(localPreferences.getString('data').toString());
+      });
+    } else if (!hasInternetConnection && useLocalDeveloperQuestions) {
+      setState(() {
+        questions = convertData('''
+[
+    {
+        "answer": "C2",
+        "question": "איפה הדוב הירוק?"
+    },
+    {
+        "answer": "E2",
+        "question": "איפה הפיל הורוד??"
+    },
+    {
+        "answer": "I3",
+        "question": "איפה הקוף הורוד?"
+    },
+    {
+        "answer": "E4",
+        "question": "איפה קפטן אמריקה?"
+    },
+    {
+        "answer": "J3",
+        "question": "איפה הצב המנוקד?"
+    },
+    {
+        "answer": "L3",
+        "question": "איפה הקוף הכתום?"
+    },
+    {
+        "answer": "I1",
+        "question": "איפה הכלב?"
+    },
+    {
+        "answer": "L1",
+        "question": "איפה הדובי השחור?"
+    },
+    {
+        "answer": "H3",
+        "question": "איפה מיני מאוס?"
+    },
+    {
+        "answer": "H2",
+        "question": "איפה הנמר עם המשקפת?"
+    },
+    {
+        "answer": "K3",
+        "question": "איפה אלמו מרחוב סומסום?"
+    },
+    {
+        "answer": "C1",
+        "question": "איפה פו הדוב?"
+    },
+    {
+        "answer": "E3",
+        "question": "איפה האוגר עם הלב?"
+    },
+    {
+        "answer": "E1",
+        "question": "איפה הדרקון האדום?"
+    },
+    {
+        "answer": "B4",
+        "question": "איפה הכלב הדלמטי?"
+    },
+    {
+        "answer": "F3",
+        "question": "איפה כלב הים?"
+    },
+    {
+        "answer": "A2",
+        "question": "איפה הברווז הסגול?"
+    },
+    {
+        "answer": "G2",
+        "question": "איפה הצב הכחול?"
+    },
+    {
+        "answer": "G4",
+        "question": "איפה הקוף הירוק?"
+    },
+    {
+        "answer": "C4",
+        "question": "איפה הזאב לבן אדום?"
+    }
+]
+          ''');
+      });
+    } else {
       String json = await getData();
       setState(() {
         questions = convertData(json);
@@ -106,11 +200,6 @@ class LoadPageState extends State {
         }
         print('Fetched ${images.length} images from internet');
       }
-    } else {
-      print('No internet :( using old data');
-      setState(() {
-        questions = convertData(localPreferences.getString('data').toString());
-      });
     }
     return true;
   }

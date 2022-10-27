@@ -59,7 +59,14 @@ class _QuestionPageState extends State<QuestionPage> {
   Widget build(BuildContext context) {
     QuestionsData currentQuestion = questions[questionIndex];
     return Container(
-        decoration: BoxDecoration(gradient: bgGradient),
+        decoration: BoxDecoration(
+          image: const DecorationImage(
+            opacity: 0.7,
+            image:
+                AssetImage('assets/new_design/mat/Eifo_Efi_01a_Background.png'),
+          ),
+          gradient: bgGradient,
+        ),
         child: Stack(
             // fit: StackFit.expand,
             alignment: Alignment.bottomCenter,
@@ -135,7 +142,7 @@ class _QuestionPageState extends State<QuestionPage> {
                                 width: 70,
                                 child: Container(
                                     decoration: BoxDecoration(
-                                  borderRadius: defaultBorderRadius,
+                                  // borderRadius: defaultBorderRadius,
                                   border:
                                       Border.all(color: secondary, width: 3),
                                 )),
@@ -165,7 +172,7 @@ class _QuestionPageState extends State<QuestionPage> {
                               width: 70,
                               child: Container(
                                   decoration: BoxDecoration(
-                                borderRadius: defaultBorderRadius,
+                                // borderRadius: defaultBorderRadius,
                                 border: Border.all(color: secondary, width: 3),
                               )),
                             ),
@@ -214,7 +221,7 @@ class _QuestionPageState extends State<QuestionPage> {
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
                               buttonState == ButtonState.wrong
-                                  ? Colors.red
+                                  ? Colors.grey.shade800
                                   : buttonState == ButtonState.correct
                                       ? Colors.lightGreen
                                       : secondary)),
@@ -243,10 +250,10 @@ class _QuestionPageState extends State<QuestionPage> {
                             () => setState(() => {
                                   print('question++'),
                                   _charController.animateToItem(4,
-                                      duration: Duration(seconds: 1),
+                                      duration: const Duration(seconds: 1),
                                       curve: Curves.easeInOutCubic),
                                   _numController.animateToItem(4,
-                                      duration: Duration(seconds: 1),
+                                      duration: const Duration(seconds: 1),
                                       curve: Curves.easeInOutCubic),
                                   buttonState == ButtonState.correct
                                       ? score += 100
@@ -283,8 +290,8 @@ class _QuestionPageState extends State<QuestionPage> {
                               : buttonState == ButtonState.loading
                                   ? '....'
                                   : buttonState == ButtonState.correct
-                                      ? 'V'
-                                      : 'X',
+                                      ? ':) נכון'
+                                      : ':( לא נכון',
                           style: TextStyle(
                               color: buttonState == ButtonState.idle ||
                                       buttonState == ButtonState.loading
@@ -334,14 +341,16 @@ class _QuestionPageState extends State<QuestionPage> {
                   controller: _countDownController,
                   isReverse: true,
                   neumorphicEffect: false,
-                  innerFillGradient: LinearGradient(
-                      colors: [Colors.yellowAccent.shade200, Colors.orange]),
-                  neonColor: secondary.withOpacity(0.1),
+                  innerFillGradient: const LinearGradient(colors: [
+                    Color.fromARGB(255, 0, 255, 217),
+                    Color.fromARGB(255, 0, 213, 255)
+                  ]),
+                  neonColor: secondary.withOpacity(0.4),
                   textFormat: TextFormat.SS,
-                  // neonGradient: LinearGradient(colors: [
-                  //   Colors.greenAccent.shade200,
-                  //   Colors.blueAccent.shade400
-                  // ]),
+                  neonGradient: LinearGradient(colors: [
+                    Colors.greenAccent.shade200,
+                    Colors.blueAccent.shade400
+                  ]),
                   // innerFillColor: Colors.yellowAccent,
                   // neonColor: Colors.lightBlue,
                   // outerStrokeColor: Colors.amber,
@@ -394,14 +403,14 @@ class GameOverScreen extends StatelessWidget {
             "GAME OVER",
             textScaleFactor: 3,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Text(
             _winningText.message,
             textScaleFactor: 2,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Text(
@@ -412,7 +421,10 @@ class GameOverScreen extends StatelessWidget {
             height: 100,
             child: Container(),
           ),
-          Button(text: "Restart Game", nextScreen: EnterScreen(), onTap: () {}),
+          Button(
+              text: "Restart Game",
+              nextScreen: const EnterScreen(),
+              onTap: () {}),
           SizedBox(
             height: 100,
             child: Container(),
@@ -427,7 +439,7 @@ class GameOverScreen extends StatelessWidget {
                   AudioPlayer player = AudioPlayer();
                   const winnerSound = "tadaa-47995-cut.mp3";
                   player.play(AssetSource(winnerSound));
-                  return AutoConfetti();
+                  return const AutoConfetti();
                 } else {
                   _winningText = WinningTexts.NOTHING;
                   return Container();

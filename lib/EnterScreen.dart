@@ -14,23 +14,35 @@ class _EnterScreenState extends State<EnterScreen> {
   @override
   Widget build(final BuildContext context) {
     return Container(
+        decoration: BoxDecoration(
+          image: const DecorationImage(
+            opacity: 0.7,
+            image:
+                AssetImage('assets/new_design/mat/Eifo_Efi_01a_Background.png'),
+          ),
+          gradient: bgGradient,
+        ),
         child: Center(
             child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Elsewhere',
+              '?איפה אפי',
               textScaleFactor: 10,
             ),
-            SizedBox(
-                height: 200, child: Image.asset('assets/magnifying-glass.png')),
-            Button(
-              text: "Let's Begin",
-              nextScreen: NameScreen(),
-              onTap: () {},
-            )
+            IconButton(
+              icon: Image.asset('assets/new_design/mat/start_Button_01.png'),
+              iconSize: 400,
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (final BuildContext context) => const Scaffold(
+                              body: NameScreen(),
+                            )));
+              },
+            ),
           ],
-        )),
-        decoration: BoxDecoration(gradient: bgGradient));
+        )));
   }
 }

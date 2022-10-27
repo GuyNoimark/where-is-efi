@@ -17,42 +17,64 @@ class _NameScreenState extends State<NameScreen> {
   @override
   Widget build(final BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        image: const DecorationImage(
+          opacity: 0.7,
+          image:
+              AssetImage('assets/new_design/mat/Eifo_Efi_01a_Background.png'),
+        ),
+        gradient: bgGradient,
+      ),
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "What's your name?",
-              textScaleFactor: 5,
+              "?מה שמך",
+              textScaleFactor: 7,
+            ),
+            SizedBox(
+              height: 30,
             ),
             SizedBox(
               width: 500,
               height: 60,
               child: TextField(
-                decoration: const InputDecoration(
-                  labelText: 'name',
+                // obscureText: false,
+                style: TextStyle(color: bgColor1),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border:
+                      UnderlineInputBorder(borderRadius: defaultBorderRadius),
+                  // labelStyle: TextStyle(color: bgColor1),
+                  // labelText: 'שם',
                 ),
                 controller: myController,
-                cursorColor: Colors.white,
+                cursorColor: bgColor1,
               ),
             ),
-            Button(
-              text: "Submit",
-              nextScreen: const QuestionPage(),
+            GestureDetector(
+              child: SizedBox(
+                width: 200,
+                // height: 100,
+                child: Image.asset(
+                  'assets/new_design/mat/Continue_button_01.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
               onTap: () {
-                globals.playerName = myController.text;
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (final BuildContext context) => const Scaffold(
+                              body: QuestionPage(),
+                            )));
               },
-              // child: NeonCircularTimer(
-              //   duration: 60,
-              //   controller: _countDownController,
-              //   width: 200,
-              //   isReverse: true,
-              // ),
-            ) //TODO: question screen
+            ),
           ],
         ),
       ),
-      decoration: BoxDecoration(gradient: bgGradient),
     );
   }
 }
