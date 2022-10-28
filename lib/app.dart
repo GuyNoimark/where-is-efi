@@ -61,7 +61,7 @@ class LoadPageState extends State {
 
   Future<String> getData() async {
     final response =
-        await http.get(Uri.parse('https://api.npoint.io/44839ea0260575d91456'));
+        await http.get(Uri.parse('https://api.npoint.io/2bcc0b5c2e5433f7fc00'));
     return response.body;
   }
 
