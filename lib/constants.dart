@@ -4,8 +4,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:where_is_efi/models/questions_model.dart';
 
-Color bgColor1 = const Color.fromARGB(255, 90, 113, 237);
-Color bgColor2 = const Color.fromARGB(255, 14, 171, 247);
+Color bgColor1 = Color.fromARGB(255, 222, 26, 90);
+Color bgColor2 = Color.fromARGB(255, 247, 14, 115);
 LinearGradient bgGradient = LinearGradient(
     begin: Alignment.bottomLeft,
     end: Alignment.topRight,
@@ -19,18 +19,18 @@ Color secondary = Colors.white;
 BorderRadius defaultBorderRadius = BorderRadius.circular(20);
 
 final ThemeData elsewhereTheme = ThemeData.dark().copyWith(
-  // textTheme: GoogleFonts.poppinsTextTheme().apply(bodyColor: Colors.white),
-  inputDecorationTheme: InputDecorationTheme(
-    border: OutlineInputBorder(borderRadius: defaultBorderRadius),
-    enabledBorder: OutlineInputBorder(
-      borderRadius: defaultBorderRadius,
-      borderSide: BorderSide(width: 3, color: secondary),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: defaultBorderRadius,
-      borderSide: BorderSide(width: 3, color: Colors.yellow),
-    ),
-  ),
+  // inputDecorationTheme: InputDecorationTheme(
+  //   fillColor: Colors.whi,
+  // border: UnderlineInputBorder(borderRadius: defaultBorderRadius),
+  //   enabledBorder: UnderlineInputBorder(
+  //     borderRadius: defaultBorderRadius,
+  //     borderSide: BorderSide(width: 3, color: secondary),
+  //   ),
+  //   focusedBorder: UnderlineInputBorder(
+  //     borderRadius: defaultBorderRadius,
+  //     // borderSide: BorderSide(width: 3, color: Colors.yellow),
+  //   ),
+  // ),
   toggleButtonsTheme: ToggleButtonsThemeData(
     borderRadius: defaultBorderRadius,
   ),
