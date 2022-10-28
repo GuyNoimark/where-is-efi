@@ -1,8 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-// import 'dart:html';
-import 'dart:io';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -12,9 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:where_is_efi/constants.dart';
 import 'package:where_is_efi/models/questions_model.dart';
-import 'package:where_is_efi/questions_page.dart';
 import 'package:where_is_efi/EnterScreen.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/services.dart';
 
 import 'firebase_options.dart';
@@ -28,7 +22,7 @@ class App extends StatelessWidget {
         title: 'Flutter Demo',
         theme: elsewhereTheme,
         debugShowCheckedModeBanner: false,
-        home: LoadPage());
+        home: const LoadPage());
   }
 }
 
@@ -206,12 +200,11 @@ class LoadPageState extends State {
 
   @override
   Widget build(BuildContext context) {
-    print('build');
     return FutureBuilder(
         future: futureData,
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            return Scaffold(body: EnterScreen());
+            return const Scaffold(body: EnterScreen());
           } else if (snapshot.hasError) {
             return Text(snapshot.error.toString());
           } else {

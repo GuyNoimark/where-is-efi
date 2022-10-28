@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:where_is_efi/models/questions_model.dart';
 
-Color bgColor1 = Color.fromARGB(255, 222, 26, 90);
-Color bgColor2 = Color.fromARGB(255, 247, 14, 115);
+Color bgColor1 = const Color.fromARGB(255, 222, 26, 90);
+Color bgColor2 = const Color.fromARGB(255, 247, 14, 115);
 LinearGradient bgGradient = LinearGradient(
     begin: Alignment.bottomLeft,
     end: Alignment.topRight,
@@ -49,7 +47,7 @@ final ThemeData elsewhereTheme = ThemeData.dark().copyWith(
                   : null;
             },
           ),
-          animationDuration: Duration(milliseconds: 1000),
+          animationDuration: const Duration(milliseconds: 1000),
           backgroundColor: MaterialStateProperty.all(secondary),
           shape: MaterialStateProperty.all(RoundedRectangleBorder(
             borderRadius: defaultBorderRadius,

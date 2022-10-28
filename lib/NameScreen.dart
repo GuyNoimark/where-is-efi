@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:where_is_efi/questions_page.dart';
-import 'package:where_is_efi/widgets/Button.dart';
-import 'globals.dart' as globals;
-
 import 'constants.dart';
 
 class NameScreen extends StatefulWidget {
@@ -37,7 +34,7 @@ class _NameScreenState extends State<NameScreen> {
                 fontFamily: 'Albatros',
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             SizedBox(
@@ -58,7 +55,7 @@ class _NameScreenState extends State<NameScreen> {
                 cursorColor: bgColor1,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             GestureDetector(

@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
-
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +10,8 @@ import 'package:where_is_efi/EnterScreen.dart';
 import 'package:where_is_efi/widgets/Button.dart';
 import 'package:where_is_efi/winning_texts.dart';
 import 'globals.dart' as globals;
-import 'constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:audioplayers/audioplayers.dart';
-
-import 'globals.dart';
 
 class QuestionPage extends StatefulWidget {
   const QuestionPage({
@@ -88,7 +83,7 @@ class _QuestionPageState extends State<QuestionPage> {
                                   width: 100,
                                   height: 100,
                                   // color: Colors.grey,
-                                  child: images.length > 0
+                                  child: images.isNotEmpty
                                       ? images[questionIndex]
                                       : Container()),
                               Column(
@@ -414,7 +409,7 @@ class GameOverScreen extends StatelessWidget {
           Text(
             _winningText.message,
             textScaleFactor: 2,
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: 'Avenir',
             ),
           ),
@@ -424,7 +419,7 @@ class GameOverScreen extends StatelessWidget {
           Text(
             'Your score is: $score',
             textScaleFactor: 2,
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: 'Avenir',
             ),
           ),
