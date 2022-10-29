@@ -119,6 +119,7 @@ class LoadPageState extends State {
       });
       print('Fetched from internet: $json');
     }
+    questions.shuffle();
     return true;
   }
 
