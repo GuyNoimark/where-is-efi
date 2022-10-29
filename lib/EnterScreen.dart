@@ -1,5 +1,4 @@
 import 'package:where_is_efi/constants.dart';
-import 'widgets/Button.dart';
 import 'package:flutter/material.dart';
 import 'package:where_is_efi/NameScreen.dart';
 
@@ -37,6 +36,28 @@ class _EnterScreenState extends State<EnterScreen> {
               textScaleFactor: 10,
               style: TextStyle(
                 fontFamily: 'Albatros',
+                shadows: <Shadow>[
+                  Shadow(
+                    offset: Offset(5.0, 5.0),
+                    blurRadius: 3.0,
+                    color: Color.fromARGB(30, 0, 0, 0),
+                  ),
+                  Shadow(
+                    offset: Offset(10.0, 10.0),
+                    blurRadius: 3.0,
+                    color: Color.fromARGB(30, 0, 0, 0),
+                  ),
+                  Shadow(
+                    offset: Offset(15.0, 15.0),
+                    blurRadius: 3.0,
+                    color: Color.fromARGB(30, 0, 0, 0),
+                  ),
+                  Shadow(
+                    offset: Offset(20.0, 20.0),
+                    blurRadius: 3.0,
+                    color: Color.fromARGB(30, 0, 0, 0),
+                  ),
+                ],
               ),
             ),
             GestureDetector(
