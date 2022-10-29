@@ -259,9 +259,9 @@ class _QuestionPageState extends State<QuestionPage> {
                                               builder: (final BuildContext
                                                       context) =>
                                                   GameOverScreen(
-                                                      score: score,
-                                                      time: _countDownController
-                                                          .getTimeInSeconds())))
+                                                    name: playerName,
+                                                    score: score,
+                                                  )))
                                       : questionIndex++,
                                   // _numController.text = '',
                                   // _charController.text = ''
@@ -324,9 +324,9 @@ class _QuestionPageState extends State<QuestionPage> {
                         MaterialPageRoute(
                           builder: (final BuildContext context) =>
                               GameOverScreen(
-                                  score: score,
-                                  time:
-                                      _countDownController.getTimeInSeconds()),
+                            name: playerName,
+                            score: score,
+                          ),
                         ));
                   },
                   // initialDuration: 60,
@@ -360,25 +360,20 @@ class _QuestionPageState extends State<QuestionPage> {
 class GameOverScreen extends StatelessWidget {
   const GameOverScreen({
     Key? key,
-    required this.time,
     required this.score,
+    required this.name,
   }) : super(key: key);
 
-  final int time;
   final int score;
+  final String name;
   Future<String> sendData() async {
     const String stand = 'WhereIsEfi1'; //TODO: switch for different APK's
     final response = await http.get(Uri.parse(
-        'https://iddofroom.wixsite.com/elsewhere/_functions/winner?stand=$stand&resualt=$time'));
+        'https://iddofroom.wixsite.com/elsewhere/_functions/winner?stand=$stand$name&resault=${score / 100}'));
     // body: jsonEncode(data);
+    print(
+        'https://iddofroom.wixsite.com/elsewhere/_functions/winner?stand=$stand$name&resault=${score ~/ 100}');
     return response.body;
-
-    // headers: <String, String>{
-    //   'Content-Type': 'application/json; charset=UTF-8',
-    //   'Access-Control-Allow-Origin': '*',
-    //   'Access-Control-Allow-Headers': 'Content-Type',
-    //   'Referrer-Policy': 'no-referrer-when-downgrade'
-    // },
   }
 
   @override

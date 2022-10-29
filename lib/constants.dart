@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:where_is_efi/models/questions_model.dart';
+import 'package:faker/faker.dart';
 
 Color bgColor1 = const Color.fromARGB(255, 222, 26, 90);
 Color bgColor2 = const Color.fromARGB(255, 247, 14, 115);
@@ -54,3 +55,8 @@ final ThemeData elsewhereTheme = ThemeData.dark().copyWith(
 );
 
 List<QuestionsData> questions = [];
+
+// Faker faker = Faker();
+// String playerName = faker.person.firstName() + faker.person.firstName();
+
+String playerName = 'Anonymous Player';

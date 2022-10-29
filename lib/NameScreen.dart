@@ -68,6 +68,9 @@ class _NameScreenState extends State<NameScreen> {
                 ),
               ),
               onTap: () {
+                playerName = myController.text.isNotEmpty
+                    ? myController.text.replaceAll(' ', '')
+                    : playerName;
                 Navigator.push(
                     context,
                     MaterialPageRoute(

@@ -43,6 +43,7 @@ dependencies:
   confetti: ^0.7.0
   cached_network_image: ^3.2.1
   audioplayers: ^1.0.1
+  faker: ^2.0.0
 
 dev_dependencies:
   flutter_test:
