@@ -79,13 +79,10 @@ class _QuestionPageState extends State<QuestionPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                  width: 100,
-                                  height: 100,
-                                  // color: Colors.grey,
-                                  child: images.isNotEmpty
-                                      ? images[questionIndex]
-                                      : Container()),
+                              const SizedBox(
+                                width: 100,
+                                height: 100,
+                              ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 mainAxisAlignment: MainAxisAlignment.center,
