@@ -2,7 +2,7 @@
 
 This is a simple quiz app developed for "Elsewhere" project.
 
-![App Screens](/assets/new_design/screenshots/mockup.png)
+![App Screens](/assets/screenshots/mockup.png)
 
 ## Table of Contents
 
@@ -36,7 +36,7 @@ $ flutter run
 
 ## Usage
 
-![Screens](/assets/new_design/screenshots/screens.png)
+![Screens](/assets/screenshots/screens.png)
 
 ## Database
 
