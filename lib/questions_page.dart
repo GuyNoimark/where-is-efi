@@ -417,7 +417,7 @@ class GameOverScreen extends StatelessWidget {
                 if (isWinner) {
                   _winningText = WinningTexts.WON;
                   AudioPlayer player = AudioPlayer();
-                  const winnerSound = "tadaa-47995-cut.mp3";
+                  const winnerSound = "winner_sound.mp3";
                   player.play(AssetSource(winnerSound));
                   return const AutoConfetti();
                 } else {
