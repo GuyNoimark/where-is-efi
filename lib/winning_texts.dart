@@ -1,4 +1,4 @@
-enum WinningTexts { RECORD, PRIZE, NOTHING }
+enum WinningTexts { RECORD, PRIZE, NOTHING, WON }
 
 extension WinningTextsExtension on WinningTexts {
   String get message {
@@ -9,6 +9,8 @@ extension WinningTextsExtension on WinningTexts {
         return "Woo hoo! ,you have won a PRIZE!";
       case WinningTexts.RECORD:
         return "OMG, YOU JUST BROKE THE RECORD!";
+      case WinningTexts.WON:
+        return "WOW!";
       default:
         return "";
     }

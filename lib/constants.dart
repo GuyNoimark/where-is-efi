@@ -59,4 +59,4 @@ List<QuestionsData> questions = [];
 // Faker faker = Faker();
 // String playerName = faker.person.firstName() + faker.person.firstName();
 
-String playerName = 'Anonymous Player';
+String playerName = 'AnonymousPlayer';

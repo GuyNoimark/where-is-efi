@@ -367,27 +367,24 @@ class GameOverScreen extends StatelessWidget {
   final int score;
   final String name;
   Future<String> sendData() async {
-    const String stand = 'WhereIsEfi1'; //TODO: switch for different APK's
+    const String stand = 'WhereIsEfi2'; //TODO: switch for different APK's
     final response = await http.get(Uri.parse(
-        'https://iddofroom.wixsite.com/elsewhere/_functions/winner?stand=$stand$name&resault=${score / 100}'));
+        'https://iddofroom.wixsite.com/elsewhere/_functions/winner?stand=$stand$name&result=${score ~/ 100}'));
     // body: jsonEncode(data);
     print(
-        'https://iddofroom.wixsite.com/elsewhere/_functions/winner?stand=$stand$name&resault=${score ~/ 100}');
+        'https://iddofroom.wixsite.com/elsewhere/_functions/winner?stand=$stand$name&result=${score ~/ 100}');
     return response.body;
   }
 
   @override
   Widget build(BuildContext context) {
-    WinningTexts _winningText = WinningTexts.NOTHING;
+    WinningTexts _winningText = WinningTexts.WON;
 
     return Scaffold(
       body: Center(
           child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            height: 180,
-            child: Container(),
-          ),
           const Text(
             "GAME OVER",
             textScaleFactor: 3,
@@ -408,32 +405,17 @@ class GameOverScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          Text(
-            'Your score is: $score',
-            textScaleFactor: 2,
-            style: const TextStyle(
-              fontFamily: 'Avenir',
-            ),
-          ),
-          SizedBox(
-            height: 100,
-            child: Container(),
-          ),
           Button(
               text: "Restart Game",
               nextScreen: const EnterScreen(),
               onTap: () {}),
-          SizedBox(
-            height: 100,
-            child: Container(),
-          ),
           FutureBuilder(
             future: sendData(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 bool isWinner = jsonDecode(snapshot.data)['winner'];
                 if (isWinner) {
-                  _winningText = WinningTexts.PRIZE;
+                  _winningText = WinningTexts.WON;
                   AudioPlayer player = AudioPlayer();
                   const winnerSound = "tadaa-47995-cut.mp3";
                   player.play(AssetSource(winnerSound));
@@ -442,8 +424,6 @@ class GameOverScreen extends StatelessWidget {
                   _winningText = WinningTexts.NOTHING;
                   return Container();
                 }
-                //TODO: need to check for record break
-                // TODO: Change in production
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               } else {
