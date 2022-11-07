@@ -395,31 +395,26 @@ class GameOverScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          Text(
-            _winningText.message,
-            textScaleFactor: 2,
-            style: const TextStyle(
-              fontFamily: 'Avenir',
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Button(
-              text: "Restart Game",
-              nextScreen: const EnterScreen(),
-              onTap: () {}),
           FutureBuilder(
             future: sendData(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 bool isWinner = jsonDecode(snapshot.data)['winner'];
                 if (isWinner) {
-                  _winningText = WinningTexts.WON;
                   AudioPlayer player = AudioPlayer();
                   const winnerSound = "winner_sound.mp3";
                   player.play(AssetSource(winnerSound));
-                  return const AutoConfetti();
+                  return Column(
+                    children: const [
+                      Text(
+                        'WOW, YOU WON!',
+                        textScaleFactor: 2,
+                        style: TextStyle(fontFamily: 'Avenir'),
+                      ),
+                      SizedBox(height: 20),
+                      AutoConfetti(),
+                    ],
+                  );
                 } else {
                   _winningText = WinningTexts.NOTHING;
                   return Container();
@@ -431,6 +426,10 @@ class GameOverScreen extends StatelessWidget {
               }
             },
           ),
+          Button(
+              text: "Restart Game",
+              nextScreen: const EnterScreen(),
+              onTap: () {}),
         ],
       )),
     );
