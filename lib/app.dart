@@ -7,6 +7,7 @@ import 'package:where_is_efi/constants.dart';
 import 'package:where_is_efi/models/questions_model.dart';
 import 'package:where_is_efi/EnterScreen.dart';
 import 'package:flutter/services.dart';
+import 'package:where_is_efi/questions_page.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -119,7 +120,6 @@ class LoadPageState extends State {
       });
       print('Fetched from internet: $json');
     }
-    questions.shuffle();
     return true;
   }
 
@@ -129,7 +129,10 @@ class LoadPageState extends State {
         future: futureData,
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
+            questions.shuffle();
             return const Scaffold(body: EnterScreen());
+            // return const Scaffold(
+            //     body: GameOverScreen(score: 200, name: 'Testi'));
           } else if (snapshot.hasError) {
             return Text(snapshot.error.toString());
           } else {
