@@ -129,7 +129,6 @@ class LoadPageState extends State {
         future: futureData,
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            questions.shuffle();
             return const Scaffold(body: EnterScreen());
             // return const Scaffold(
             //     body: GameOverScreen(score: 200, name: 'Testi'));
