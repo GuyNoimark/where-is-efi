@@ -18,6 +18,8 @@ class _EnterScreenState extends State<EnterScreen> {
 
   @override
   Widget build(final BuildContext context) {
+    questions.shuffle();
+
     return Container(
         decoration: BoxDecoration(
           image: const DecorationImage(
